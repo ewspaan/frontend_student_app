@@ -16,7 +16,8 @@ async function postFunction(url, data , file) {
                 Authorization: `Bearer ${token}`,
             }};
         const config = file === false ? configData : configFile;
-        console.log("config--> ", config);
+        console.log("config-post-> ", config);
+        console.log("data-post-> ", data);
         const result = await axios.post(urlPost,
             data, config
             )

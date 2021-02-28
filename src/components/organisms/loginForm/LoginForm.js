@@ -1,5 +1,5 @@
 import {TextInput} from "../../molecules/textInput/TextInput";
-import { Link  } from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import React, { useState , useContext } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { PasswordInput } from "../../molecules/passwordInput/PasswordInput";
@@ -13,6 +13,7 @@ export const LoginForm = () => {
 
     const { register, unregister, watch, getValues, handleSubmit,errors, ...methods} = useForm();
 
+    const history = useHistory();
     const [showPassword, toggleShowPassword] = useState("text");
     const toggleClick = () => showPassword === "password" ? toggleShowPassword("text") : toggleShowPassword("password");
 
@@ -27,6 +28,7 @@ export const LoginForm = () => {
         toggleLoading(true);
         console.log(data);
         sendLogin(data);
+        history.push('/profiel');
     }
 
     async function sendLogin(dataLogin) {
@@ -53,11 +55,7 @@ export const LoginForm = () => {
                         required: {
                             value: true,
                             message: "Username is verplicht"
-                        },
-                        // pattern: {
-                        //     // value: /^(([^<>()\]\\.,;:\s@"]+(\.[^<>()\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                        //     message: "Vul een geldig e-mailadres in."
-                        // }
+                        }
                     })}
                     />
                 <PasswordInput

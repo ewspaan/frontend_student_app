@@ -1,11 +1,21 @@
 import React from 'react';
-import HeaderRoomMate from "../components/organisms/header/HeaderRoomMate";
-
 
 function RoommatePage (){
+
+
     return(
-        <HeaderRoomMate></HeaderRoomMate>
+        <>
+            <p>Blabla</p>
+            <p>Blabla</p>
+            <p>Blabla</p>
+            <p>Blabla</p>
+            <p>Blabla</p>
+            <p>Blabla</p>
+            <p>Blabla</p>
+            <p>Blabla</p>
+            <p>Blabla</p>
+        </>
     );
-}
+};
 
 export default RoommatePage;

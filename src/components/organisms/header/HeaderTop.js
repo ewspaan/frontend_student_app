@@ -1,21 +1,24 @@
-import React, { useContext} from "react";
-import "../header/Header.css";
+import React, { useEffect, useState } from "react";
+import styles from "../header/Header.module.css";
 import { useHistory } from 'react-router-dom';
 import { Logo } from "../../atoms/Logo/Logo";
 import { Button } from "../../atoms/button/Button";
-import { AuthContext, useAuthState } from "../../../context/authContext/AuthContext";
+import { useAuthState } from "../../../context/authContext/AuthContext";
 import {Heading} from "../../atoms/heading/Heading";
+import HeaderProfile from "./HeaderProfile";
 
 function HeaderTop(){
+
+
+    const { isAuthenticated ,logout} = useAuthState();
     const history = useHistory();
 
-    const { isAuthenticated ,logout } = useAuthState();
-
     return(
-        <header>
+        <>
+        <header className={styles.header}>
             <Logo/>
             <Heading children="StudentenApp" level={1}/>
-            <div>
+            <div className={styles.div}>
                 <Button
                     type="button"
                     onClick={() => history.push('/')}
@@ -25,7 +28,10 @@ function HeaderTop(){
                 {isAuthenticated ? (
                     <Button
                         type="button"
-                        onClick={() => logout()}
+                        onClick={() => {
+                            logout()
+                            history.push('/')
+                        }}
                     >
                         Log uit
                     </Button>
@@ -47,6 +53,8 @@ function HeaderTop(){
                 )}
             </div>
         </header>
+            {isAuthenticated === true && <HeaderProfile/>}
+            </>
     );
 
 }

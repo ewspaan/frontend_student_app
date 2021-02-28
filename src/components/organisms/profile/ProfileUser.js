@@ -1,28 +1,14 @@
-import React, { useState, useEffect } from "react";
-import getFunction from "../../../hooks/getFunction";
+import React from "react";
+import styles from "./Profile.module.css";
+import {useAuthState} from "../../../context/authContext/AuthContext";
 
 function ProfileUser(){
 
-    const [user,setUser] = useState(null);
-
-    async function getProfile() {
-
-        try{
-            const result = await getFunction(`users/download/`);
-            console.log("profile-->" , result);
-            setUser(result)
-        } catch (e) {
-            console.error(e.message);
-        }
-    }
-
-    useEffect(()=> {
-        getProfile();
-    },[]);
+    const {  user } = useAuthState();
 
     return(
         <>
-            {user && <div>
+            {user && <div className={styles.profile}>
                 <p>{user.firstName} {user.lastName}</p>
                 <p>{user.email}</p>
                 <p>{user.dateOfBirth}</p>

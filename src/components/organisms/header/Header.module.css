@@ -1,0 +1,21 @@
+.header {
+    background-color: dodgerblue;
+    color: white;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-direction: row;
+}
+
+.elder {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}
+
+.div {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}

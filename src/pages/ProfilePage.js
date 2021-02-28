@@ -1,17 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import getFunction from "../hooks/getFunction";
-import {Button} from "../components/atoms/button/Button";
-import HeaderProfile from "../components/organisms/header/HeaderProfile";
+import React from 'react';
+import styles from "./ProfilePage.module.css"
+import ProfileUser from "../components/organisms/profile/ProfileUser";
+import PersonInfoForm from "../components/organisms/personInfoForm/PersonInfoForm";
+import PasswordForm  from "../components/organisms/passwordForm/PasswordForm";
 
 function ProfilePage(){
 
 
-
     return(
-        <>
-            <HeaderProfile/>
-        </>
+        <div className={styles.profile}>
+            <ProfileUser/>
+            <PersonInfoForm
+                firstName={true}
+                lastName={true}
+                username={false}
+                email={true}
+                dateOfBirth={true}/>
+            <PasswordForm minLengthPassword={6}/>
+        </div>
     );
 }
+
 
 export default ProfilePage;

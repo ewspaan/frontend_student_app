@@ -1,11 +1,13 @@
-import React, { useState , useRef } from "react";
+import React, {useState, useRef} from "react";
+import styles from "./PasswordForm.module.css";
 import { FormProvider, useForm } from "react-hook-form";
 import { CheckboxInput } from "../../molecules/checkboxInput/CheckboxInput";
 import { PasswordInput } from "../../molecules/passwordInput/PasswordInput";
 import { ErrorMessage } from "../../atoms/errorMessage/ErrorMessage";
 import { Button } from "../../atoms/button/Button";
+import postFunction from "../../../hooks/postFunction";
 
-export const PasswordForm = (({setPassword, minLengthPassword}) => {
+function PasswordForm ({setPassword, minLengthPassword}) {
     const [showPassword, toggleShowPassword] = useState("password");
     const { register, unregister, watch, getValues, handleSubmit,errors,setValue, ...methods} = useForm();
 
@@ -21,13 +23,17 @@ export const PasswordForm = (({setPassword, minLengthPassword}) => {
     const labelString = "Wachtwoord: (wachtwoord moet minimaal "+ minLengthPassword + " symbolen lang zijn)";
     const errorMessageString = "Wachtwoord moet minimaal "+ minLengthPassword + " lang zijn";
 
+
     function onSubmit(data){
-        setPassword(data);
-    }
+            const password = { password: data.password,
+                                passwordRepeat : data.passwordRepeat};
+            const result = postFunction("users/update", password, false);
+            console.log("Result-passwordform-> ", result);
+        }
 
     return (
         <FormProvider {...methods} register={register} watch={watch} handleSubmit={handleSubmit} errors={errors}>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form className={styles.passwordForm} onSubmit={handleSubmit(onSubmit)}>
                 <PasswordInput
                     type={showPassword}
                     name="password"
@@ -65,5 +71,7 @@ export const PasswordForm = (({setPassword, minLengthPassword}) => {
         </FormProvider>
     );
 
-})
+}
+
+export default PasswordForm;
 
