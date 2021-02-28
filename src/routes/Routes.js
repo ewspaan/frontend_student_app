@@ -9,9 +9,7 @@ import RoommatePage from "../pages/RoommatePage";
 import ProfilePage from "../pages/ProfilePage";
 import DeclarationPage from "../pages/DeclarationPage";
 import HouseAccountPage from "../pages/HouseAccountPage";
-import {PrivateRoute} from "../components/molecules/privateRoute/PrivateRoute";
-import DeclarationSummaryPage from "../pages/DeclarationSummaryPage";
-import AddRoommatePage from "../pages/AddRoomMatePage";
+import RoutesModerator from "./RoutesModerator";
 
 
 function Routes() {
@@ -25,15 +23,18 @@ function Routes() {
             <HeaderTop/>
             <Switch>
                 <Route exact path="/" component={HomePage} />
-                <Route path="/declaratie/overzicht" component={ DeclarationSummaryPage }/>
-                <Route path="/huisgenoten/toevoegen" component={ AddRoommatePage }/>
                 <Route path="/login" component={ LoginPage }/>
                 <Route path="/signup" component={SignUpPage}/>
+                {isAuthenticated === true && user.roles === "ROLE_MODERATOR"
+                    &&<RoutesModerator/>}
+                {isAuthenticated === true ? <>
                 <Route path="/profiel" component={ ProfilePage }/>
                 <Route path="/huisgenoten" component={ RoommatePage }/>
                 <Route path="/declaratie" component={ DeclarationPage }/>
-                <Route path="/huisrekening" component={ HouseAccountPage }/>
-                </Switch>
+                <Route path="/huisrekening" component={ HouseAccountPage }/></> :
+                    <p> Log in om deze pagina's te bekijken </p>}
+
+            </Switch>
         </>
     );
 }

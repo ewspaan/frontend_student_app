@@ -1,37 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import PhotoWarande from "../assets/Homepage_Warande.jpg";
-import styles from "./DeclarationSummaryPage.module.css";
 import {useAuthState} from "../context/authContext/AuthContext";
 import {useHistory} from "react-router-dom";
-import HeaderHouseElder from "../components/organisms/header/HeaderHouseElder";
-import HeaderRoomMate from "../components/organisms/header/HeaderRoomMate";
-import RoommateSignUpForm from "../components/organisms/roommateSignUpForm/RoommateSignUpForm";
-
-
 
 
 function HomePage(){
 
     const { isAuthenticated , user } = useAuthState();
     const history = useHistory();
-    const [element, setElement] = useState(<header>Leeg</header>);
-
-    useEffect(() => {
-
-        if(user !== null && isAuthenticated){
-            switch(user.roles) {
-                case "ROLE_MODERATOR":
-                    setElement(<HeaderHouseElder/>)
-                    break;
-                case "ROLE_USER":
-                    setElement(<HeaderRoomMate/>)
-                    break;
-                default:
-                    setElement(<header>Bla</header>)
-                    break;
-            }
-        }
-    },[history])
 
     return (
         <div className="page-container">
