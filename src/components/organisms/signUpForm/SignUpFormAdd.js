@@ -21,9 +21,9 @@ export const SignUpFormAdd = ({housemate}) => {
     useEffect(() => {
             setValue("firstName", housemate.firstName)
             setValue("lastName", housemate.lastName)
-            setValue("username", "hspaan")
+            setValue("username", "blabla")
             setValue("email", housemate.email)
-            setValue("dateOfBirth", "20-05-1944")
+            setValue("dateOfBirth", "03-04-2002")
             setValue("password", "12345678")
             setValue("passwordRepeat", "12345678")
             setValue("agree", true)

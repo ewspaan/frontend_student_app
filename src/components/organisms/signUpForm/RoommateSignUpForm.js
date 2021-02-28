@@ -15,9 +15,9 @@ function RoommateSignUpForm(){
 
     //test data setten
     useEffect(() => {
-        setValue("firstName", "Henk")
-        setValue("lastName", "Spaan")
-        setValue("email", "hspaan@gmail.com")
+        setValue("firstName", "Blabla")
+        setValue("lastName", "van Bla")
+        setValue("email", "hmmmmm@gmail.com")
     },[]);
 
 

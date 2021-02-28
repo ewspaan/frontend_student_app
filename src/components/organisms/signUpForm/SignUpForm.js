@@ -35,11 +35,11 @@ export const SignUpForm = () => {
     }
     //Test data setten
     useEffect(() => {
-    setValue("firstName", "Ingrid")
-    setValue("lastName", "Spaan")
-    setValue("username", "ipj")
-    setValue("email", "ipjspaan@gmail.com")
-    setValue("dateOfBirth", "06-04-1981")
+    setValue("firstName", "Blablabla")
+    setValue("lastName", "de Vries")
+    setValue("username", "blablabla")
+    setValue("email", "blaatbv@gmail.com")
+    setValue("dateOfBirth", "06-07-1988")
     setValue("password", "12345678")
     setValue("passwordRepeat", "12345678")
     setValue("agree", true)
