@@ -1,6 +1,5 @@
 import React from 'react';
-import RoommateSignUpForm from "../components/organisms/roommateSignUpForm/RoommateSignUpForm";
-import {useAuthState} from "../context/authContext/AuthContext";
+import RoommateSignUpForm from "../components/organisms/signUpForm/RoommateSignUpForm";
 
 
 function AddRoommatePage(){

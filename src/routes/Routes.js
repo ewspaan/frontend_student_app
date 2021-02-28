@@ -10,11 +10,12 @@ import ProfilePage from "../pages/ProfilePage";
 import DeclarationPage from "../pages/DeclarationPage";
 import HouseAccountPage from "../pages/HouseAccountPage";
 import RoutesModerator from "./RoutesModerator";
+import DeclarationSummaryPage from "../pages/DeclarationSummaryPage";
+import AddRoommatePage from "../pages/AddRoomMatePage";
 
 
 function Routes() {
-    const history = useHistory();
-    const [page, setPage] = useState("empty");
+
     const { isAuthenticated , user } = useAuthState();
 
 
@@ -25,14 +26,19 @@ function Routes() {
                 <Route exact path="/" component={HomePage} />
                 <Route path="/login" component={ LoginPage }/>
                 <Route path="/signup" component={SignUpPage}/>
-                {isAuthenticated === true && user.roles === "ROLE_MODERATOR"
-                    &&<RoutesModerator/>}
                 {isAuthenticated === true ? <>
+                {user.roles === "ROLE_MODERATOR" &&  <Route path="/declaratie/overzicht">
+                            <DeclarationSummaryPage/>
+                        </Route>}
+                {user.roles === "ROLE_MODERATOR" &&  <Route path="/huisgenoten/toevoegen" >
+                            <AddRoommatePage/>
+                        </Route>}
                 <Route path="/profiel" component={ ProfilePage }/>
-                <Route path="/huisgenoten" component={ RoommatePage }/>
-                <Route path="/declaratie" component={ DeclarationPage }/>
+                <Route exact path="/huisgenoten" component={ RoommatePage }/>
+                <Route exact path="/declaratie" component={ DeclarationPage }/>
                 <Route path="/huisrekening" component={ HouseAccountPage }/></> :
                     <p> Log in om deze pagina's te bekijken </p>}
+
 
             </Switch>
         </>

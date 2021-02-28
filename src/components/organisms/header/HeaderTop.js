@@ -5,33 +5,13 @@ import { Logo } from "../../atoms/Logo/Logo";
 import { Button } from "../../atoms/button/Button";
 import { useAuthState } from "../../../context/authContext/AuthContext";
 import {Heading} from "../../atoms/heading/Heading";
-import HeaderHouseElder from "./HeaderHouseElder";
-import HeaderRoomMate from "./HeaderRoomMate";
 import HeaderProfile from "./HeaderProfile";
 
 function HeaderTop(){
 
 
-    const { isAuthenticated ,logout, user } = useAuthState();
+    const { isAuthenticated ,logout} = useAuthState();
     const history = useHistory();
-    const [element, setElement] = useState(<header> </header>);
-
-    useEffect(() => {
-
-        if(user !== null && isAuthenticated){
-            switch(user.roles) {
-                case "ROLE_MODERATOR":
-                    setElement(<HeaderHouseElder/>)
-                    break;
-                case "ROLE_USER":
-                    setElement(<HeaderRoomMate/>)
-                    break;
-                default:
-                    setElement(<header>Bla</header>)
-                    break;
-            }
-        }
-    },[history])
 
     return(
         <>
@@ -48,9 +28,10 @@ function HeaderTop(){
                 {isAuthenticated ? (
                     <Button
                         type="button"
-                        onClick={() => {logout()
-                        history.push('/')
-                        setElement(null)}}
+                        onClick={() => {
+                            logout()
+                            history.push('/')
+                        }}
                     >
                         Log uit
                     </Button>
@@ -71,9 +52,9 @@ function HeaderTop(){
                     </>
                 )}
             </div>
-            {isAuthenticated === true && <HeaderProfile/>}
         </header>
-        </>
+            {isAuthenticated === true && <HeaderProfile/>}
+            </>
     );
 
 }

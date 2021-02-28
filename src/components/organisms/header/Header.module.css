@@ -5,7 +5,7 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    flex-direction: column;
+    flex-direction: row;
 }
 
 .elder {

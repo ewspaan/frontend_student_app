@@ -1,4 +1,5 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
+import styles from "./PersonInfoForm.module.css";
 import { FormProvider, useForm } from "react-hook-form";
 import { TextInput } from "../../molecules/textInput/TextInput";
 import { Button } from "../../atoms/button/Button";
@@ -27,7 +28,7 @@ function PersonInfoForm({firstName,lastName,username,email,dateOfBirth}) {
 
     return (
             <FormProvider {...methods} register={register} watch={watch} handleSubmit={handleSubmit} errors={errors}>
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <form className={styles.infoForm} onSubmit={handleSubmit(onSubmit)}>
                     {firstName === true && <TextInput
                         name="firstName"
                         label="Voornaam:"

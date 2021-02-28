@@ -1,13 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {LoginForm} from "../components/organisms/loginForm/LoginForm";
 import {useAuthState} from "../context/authContext/AuthContext";
-import {useHistory} from "react-router-dom";
+
 
 
 function LoginPage(){
 
-    const { isAuthenticated , user } = useAuthState();
-    const history = useHistory();
+    const { isAuthenticated  } = useAuthState();
 
 
     return(

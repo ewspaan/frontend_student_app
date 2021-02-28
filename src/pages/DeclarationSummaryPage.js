@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import {useAuthState} from "../context/authContext/AuthContext";
+import React from "react";
 import DeclarationSummaryField from "../components/organisms/declarationSummaryField/DeclarationSummaryField";
 
 
@@ -7,7 +6,6 @@ import DeclarationSummaryField from "../components/organisms/declarationSummaryF
 
 function DeclarationSummaryPage () {
 
-    const { isAuthenticated , user } = useAuthState();
 
     return (
         <div>

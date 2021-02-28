@@ -1,10 +1,7 @@
-import React, {useEffect,useState} from 'react';
-import {useAuthState} from "../context/authContext/AuthContext";
-import {useHistory} from "react-router-dom";
-
+import React from 'react';
 
 function RoommatePage (){
-    const { isAuthenticated , user } = useAuthState();
+
 
     return(
         <>

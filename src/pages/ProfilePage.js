@@ -1,17 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import styles from "./ProfilePage.module.css"
 import ProfileUser from "../components/organisms/profile/ProfileUser";
-import {useAuthState} from "../context/authContext/AuthContext";
 import PersonInfoForm from "../components/organisms/personInfoForm/PersonInfoForm";
-import {PasswordForm} from "../components/organisms/passwordForm/PasswordForm";
+import PasswordForm  from "../components/organisms/passwordForm/PasswordForm";
 
 function ProfilePage(){
 
-    const [data, setData] = useState();
-
-    const { isAuthenticated , user } = useAuthState();
 
     return(
-        <>
+        <div className={styles.profile}>
             <ProfileUser/>
             <PersonInfoForm
                 firstName={true}
@@ -20,7 +17,7 @@ function ProfilePage(){
                 email={true}
                 dateOfBirth={true}/>
             <PasswordForm minLengthPassword={6}/>
-        </>
+        </div>
     );
 }
 

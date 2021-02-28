@@ -11,7 +11,7 @@ function RoommateSignUpForm(){
     const [succesFullSubmit, toggleSuccesFullSubmit] = useState(false);
     const [loading, toggleLoading] = useState(false);
     const [error, setError] = useState("");
-    const [count, setCount] = useState(0);
+
 
     //test data setten
     useEffect(() => {
