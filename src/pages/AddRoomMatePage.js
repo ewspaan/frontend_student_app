@@ -1,20 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import PhotoWarande from "../assets/Homepage_Warande.jpg";
-import styles from "./DeclarationSummaryPage.module.css";
+import RoommateSignUpForm from "../components/organisms/roommateSignUpForm/RoommateSignUpForm";
+import HeaderRoomMate from "../components/organisms/header/HeaderRoomMate";
+import HeaderHouseElder from "../components/organisms/header/HeaderHouseElder";
 import {useAuthState} from "../context/authContext/AuthContext";
 import {useHistory} from "react-router-dom";
-import HeaderHouseElder from "../components/organisms/header/HeaderHouseElder";
-import HeaderRoomMate from "../components/organisms/header/HeaderRoomMate";
-import RoommateSignUpForm from "../components/organisms/roommateSignUpForm/RoommateSignUpForm";
 
-
-
-
-function HomePage(){
+function AddRoommatePage(){
 
     const { isAuthenticated , user } = useAuthState();
     const history = useHistory();
-    const [element, setElement] = useState(<header>Leeg</header>);
+    const [element, setElement] = useState(<header> </header>);
 
     useEffect(() => {
 
@@ -27,18 +22,17 @@ function HomePage(){
                     setElement(<HeaderRoomMate/>)
                     break;
                 default:
-                    setElement(<header>Bla</header>)
+                    setElement(<header> </header>)
                     break;
             }
         }
     },[history])
 
     return (
-        <div className="page-container">
-            <img src={PhotoWarande} alt="Foto Studentenhuis"/>
+        <div>
+            <RoommateSignUpForm/>
         </div>
     );
+};
 
-}
-
-export default HomePage;
+export default AddRoommatePage

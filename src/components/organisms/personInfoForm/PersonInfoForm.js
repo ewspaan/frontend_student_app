@@ -1,16 +1,30 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { TextInput } from "../../molecules/textInput/TextInput";
 import { Button } from "../../atoms/button/Button";
+import postFunction from "../../../hooks/postFunction";
 
 
 
-export const PersonInfoForm = (({setPersonalInfo,firstName,lastName,username,email,dateOfBirth}) => {
+function PersonInfoForm({firstName,lastName,username,email,dateOfBirth}) {
+
     const { register, unregister, watch, getValues, handleSubmit,errors,setValue, ...methods} = useForm();
 
-    function onSubmit(data){
-        setPersonalInfo(data);
+
+    function onSubmit(data) {
+
+        const client = ({
+            firstName: data.firstName,
+            lastName: data.lastName,
+            email: data.email,
+            dateOfBirth: data.dateOfBirth,
+            password: data.password,
+            passwordRepeat: data.passwordRepeat
+        });
+        console.log("client--> ", client);
+        postFunction("users/update", client , false);
     }
+
     return (
             <FormProvider {...methods} register={register} watch={watch} handleSubmit={handleSubmit} errors={errors}>
                 <form onSubmit={handleSubmit(onSubmit)}>
@@ -77,6 +91,8 @@ export const PersonInfoForm = (({setPersonalInfo,firstName,lastName,username,ema
                     </Button>
                 </form>
             </FormProvider>
-
     );
-});
+}
+
+export default PersonInfoForm;
+

@@ -1,21 +1,44 @@
-import React, { useContext} from "react";
-import "../header/Header.css";
+import React, { useEffect, useState } from "react";
+import styles from "../header/Header.module.css";
 import { useHistory } from 'react-router-dom';
 import { Logo } from "../../atoms/Logo/Logo";
 import { Button } from "../../atoms/button/Button";
-import { AuthContext, useAuthState } from "../../../context/authContext/AuthContext";
+import { useAuthState } from "../../../context/authContext/AuthContext";
 import {Heading} from "../../atoms/heading/Heading";
+import HeaderHouseElder from "./HeaderHouseElder";
+import HeaderRoomMate from "./HeaderRoomMate";
+import HeaderProfile from "./HeaderProfile";
 
 function HeaderTop(){
-    const history = useHistory();
 
-    const { isAuthenticated ,logout } = useAuthState();
+
+    const { isAuthenticated ,logout, user } = useAuthState();
+    const history = useHistory();
+    const [element, setElement] = useState(<header> </header>);
+
+    useEffect(() => {
+
+        if(user !== null && isAuthenticated){
+            switch(user.roles) {
+                case "ROLE_MODERATOR":
+                    setElement(<HeaderHouseElder/>)
+                    break;
+                case "ROLE_USER":
+                    setElement(<HeaderRoomMate/>)
+                    break;
+                default:
+                    setElement(<header>Bla</header>)
+                    break;
+            }
+        }
+    },[history])
 
     return(
-        <header>
+        <>
+        <header className={styles.header}>
             <Logo/>
             <Heading children="StudentenApp" level={1}/>
-            <div>
+            <div className={styles.div}>
                 <Button
                     type="button"
                     onClick={() => history.push('/')}
@@ -25,7 +48,9 @@ function HeaderTop(){
                 {isAuthenticated ? (
                     <Button
                         type="button"
-                        onClick={() => logout()}
+                        onClick={() => {logout()
+                        history.push('/')
+                        setElement(null)}}
                     >
                         Log uit
                     </Button>
@@ -46,7 +71,9 @@ function HeaderTop(){
                     </>
                 )}
             </div>
+            {isAuthenticated === true && <HeaderProfile/>}
         </header>
+        </>
     );
 
 }

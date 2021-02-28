@@ -1,24 +1,13 @@
 import React, { useState, useEffect } from "react";
 import getFunction from "../../../hooks/getFunction";
+import {useHistory} from "react-router-dom";
+import {useAuthState} from "../../../context/authContext/AuthContext";
 
 function ProfileUser(){
 
-    const [user,setUser] = useState(null);
+    const {  user } = useAuthState();
 
-    async function getProfile() {
 
-        try{
-            const result = await getFunction(`users/download/`);
-            console.log("profile-->" , result);
-            setUser(result)
-        } catch (e) {
-            console.error(e.message);
-        }
-    }
-
-    useEffect(()=> {
-        getProfile();
-    },[]);
 
     return(
         <>

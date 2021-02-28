@@ -1,75 +1,63 @@
 import React, { useState, useEffect } from "react";
-import "../header/Header.css";
+import styles from "../header/Header.module.css"
+import { useHistory } from 'react-router-dom';
 import { Button } from "../../atoms/button/Button";
 import { Heading } from "../../atoms/heading/Heading";
-import DeclarationPage from "../../../pages/roommatePages/DeclarationPage";
-import AddRoommatePage from "../../../pages/elderPages/AddRoomMatePage";
-import DeclarationSummaryPage from "../../../pages/elderPages/DeclarationSummaryPage";
+import DeclarationPage from "../../../pages/DeclarationPage";
+import AddRoommatePage from "../../../pages/AddRoomMatePage";
+import DeclarationSummaryPage from "../../../pages/DeclarationSummaryPage";
 import ProfilePage from "../../../pages/ProfilePage";
 import HeaderProfile from "./HeaderProfile";
-import HouseAccountPage from "../../../pages/elderPages/HouseAccountPage";
+import HouseAccountPage from "../../../pages/HouseAccountPage";
 
 
 function HeaderHouseElder(){
 
-    const [element, setElement] = useState();
-
-    useEffect(()=> {
-        setElement(<HeaderProfile/>);
-    },[]);
+    const history = useHistory();
 
 
     return(
         <>
-            <header>
+            <header className={styles.elder}>
                 <Heading children="Huisoudste" level={2}></Heading>
                 <Button
                     type="button"
-                    onClick={() => console.log("Huisgenoten")}
+                    onClick={() => history.push('/huisgenoten')}
                 >
                     Huisgenoten
                 </Button>
 
                 <Button
                     type="button"
-                    onClick={() => {
-                        setElement(<HouseAccountPage/>);
-                    }}
+                    onClick={() => history.push('/huisrekening')}
                 >
                     Huisrekening overzicht
                 </Button>
                 <Button
                     type="button"
-                    onClick={() => {
-                        setElement(<DeclarationSummaryPage/>);
-                    }}
+                    onClick={() => history.push('/declaratie/overzicht')}
                 >
                     Declaraties overzicht
                 </Button>
                 <Button
                     type="button"
-                    onClick={() => {
-                        setElement(<DeclarationPage/>);
-                        }}
+                    onClick={() => history.push('/declaratie')}
                 >
                     Boodschappen declareren
                 </Button>
                 <Button
                     type="button"
-                    onClick={() => setElement(<AddRoommatePage/>)}
+                    onClick={() => history.push('/huisgenoten/toevoegen')}
                 >
                     Huisgenoten toevoegen
                 </Button>
                 <Button
                     type="button"
-                    onClick={() => {
-                        setElement(<ProfilePage/>);
-                    }}
+                    onClick={() => history.push('/profiel')}
                 >
                     Profiel
                 </Button>
             </header>
-            {element}
         </>
     )
 }

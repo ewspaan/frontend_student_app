@@ -1,9 +1,10 @@
-import React, { useState , useRef } from "react";
+import React, {useState, useRef, useEffect} from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { CheckboxInput } from "../../molecules/checkboxInput/CheckboxInput";
 import { PasswordInput } from "../../molecules/passwordInput/PasswordInput";
 import { ErrorMessage } from "../../atoms/errorMessage/ErrorMessage";
 import { Button } from "../../atoms/button/Button";
+import postFunction from "../../../hooks/postFunction";
 
 export const PasswordForm = (({setPassword, minLengthPassword}) => {
     const [showPassword, toggleShowPassword] = useState("password");
@@ -21,9 +22,12 @@ export const PasswordForm = (({setPassword, minLengthPassword}) => {
     const labelString = "Wachtwoord: (wachtwoord moet minimaal "+ minLengthPassword + " symbolen lang zijn)";
     const errorMessageString = "Wachtwoord moet minimaal "+ minLengthPassword + " lang zijn";
 
+
     function onSubmit(data){
-        setPassword(data);
-    }
+            const password = { password: data.password,
+                                passwordRepeat : data.passwordRepeat};
+            postFunction("users/update", password, false);
+        }
 
     return (
         <FormProvider {...methods} register={register} watch={watch} handleSubmit={handleSubmit} errors={errors}>

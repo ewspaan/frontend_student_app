@@ -1,20 +1,17 @@
-import React, {useEffect, useState} from 'react';
-import PhotoWarande from "../assets/Homepage_Warande.jpg";
-import styles from "./DeclarationSummaryPage.module.css";
+import React, { useState, useEffect } from "react";
+import "./DeclarationPage.css";
+import "./DeclarationPage.css"
 import {useAuthState} from "../context/authContext/AuthContext";
 import {useHistory} from "react-router-dom";
 import HeaderHouseElder from "../components/organisms/header/HeaderHouseElder";
 import HeaderRoomMate from "../components/organisms/header/HeaderRoomMate";
-import RoommateSignUpForm from "../components/organisms/roommateSignUpForm/RoommateSignUpForm";
+import DeclarationForm from "../components/organisms/declarationForm/DeclarationForm";
 
-
-
-
-function HomePage(){
+function DeclarationPage(){
 
     const { isAuthenticated , user } = useAuthState();
     const history = useHistory();
-    const [element, setElement] = useState(<header>Leeg</header>);
+    const [element, setElement] = useState(<header></header>);
 
     useEffect(() => {
 
@@ -27,18 +24,17 @@ function HomePage(){
                     setElement(<HeaderRoomMate/>)
                     break;
                 default:
-                    setElement(<header>Bla</header>)
+                    setElement(<header></header>)
                     break;
             }
         }
     },[history])
 
     return (
-        <div className="page-container">
-            <img src={PhotoWarande} alt="Foto Studentenhuis"/>
+        <div>
+            <DeclarationForm/>
         </div>
     );
-
 }
 
-export default HomePage;
+export default DeclarationPage;
