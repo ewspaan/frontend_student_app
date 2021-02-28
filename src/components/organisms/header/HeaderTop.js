@@ -9,8 +9,7 @@ import {Heading} from "../../atoms/heading/Heading";
 function HeaderTop(){
     const history = useHistory();
 
-    const { isAuthenticated } = useAuthState();
-    const { logout } = useContext(AuthContext);
+    const { isAuthenticated ,logout } = useAuthState();
 
     return(
         <header>

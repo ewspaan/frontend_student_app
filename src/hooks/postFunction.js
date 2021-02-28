@@ -1,25 +1,32 @@
 import axios from "axios";
 
-async function postFunction(url, data) {
+async function postFunction(url, data , file) {
 
     const token = localStorage.getItem('token');
     const urlPost = `http://localhost:8080/api/${url}`;
-    const config = {headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-        }};
-    //console.log("axios result--> ", urlGet);
+
     try {
+
+        const configData = {headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            }};
+        const configFile = {headers: {
+                "Content-Type": "multipart/form-data; boundary=<calculated when request is sent>",
+                Authorization: `Bearer ${token}`,
+            }};
+        const config = file === false ? configData : configFile;
+        console.log("config--> ", config);
         const result = await axios.post(urlPost,
-            data,
-            config)
+            data, config
+            )
         console.log("axios result--> ", result.data);
         if (result.status === 200){
-
+        return result.data;
         }
     } catch (e) {
         console.error(e.message);
     }
 }
-
+//"Content-Type": "application/json","multipart/form-data; boundary=<calculated when request is sent>"
 export default postFunction;

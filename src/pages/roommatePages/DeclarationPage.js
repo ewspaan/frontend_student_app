@@ -8,6 +8,7 @@ import {InputField} from "../../components/atoms/input/InputField";
 import {Label} from "../../components/atoms/label/Label";
 import {Heading} from "../../components/atoms/heading/Heading";
 import setCurrentDateToString from "../../hooks/setCurrentDateToString";
+import postFunction from "../../hooks/postFunction";
 
 function DeclarationPage(){
 
@@ -22,11 +23,6 @@ function DeclarationPage(){
 
     function submitFile(e) {
         e.preventDefault();
-        const day = new Date().getDate();
-        const month = new Date().getMonth()+1;
-        const year = new Date().getFullYear();
-        setTime(day);
-        console.log("time-->  " , day,month,year );
         setError("");
         if(selectedFile !== null) {
             if (groceriesAmount !== 0) {
@@ -68,35 +64,20 @@ function DeclarationPage(){
             setImagePreview(<img src={imagePreviewUrl} alt="Preview"/>);
         }},[imagePreviewUrl]);
 
-    //file uploaden
-    async function addFile(dataFile) {
-        console.log("groceries-->  ", setCurrentDateToString());
-        const formData = new FormData();
-        formData.append("file", dataFile)
-        formData.append("amount", "12.34")
-        formData.append("date", setCurrentDateToString())
-        formData.append("test", "11-11-1977")
-        console.log("formData-date->  ", formData.getAll("date"));
-        console.log("formData-test->  ", formData.getAll("test"));
+    //file uploaden en declaratie
+    function addFile(dataFile) {
         toggleLoading(true);
-        const token = localStorage.getItem('token');
-
-        try {
-            const result = await axios.post(`http://localhost:8080/api/files/upload`,
-                formData,
-                {
-                    headers: {
-                        "Content-Type": "multipart/form-data; boundary=<calculated when request is sent>",
-                        Authorization: `Bearer ${token}`
-                    }}
-            );
-            console.log("axios result--> ", result);
-            if (result.status === 200){
-
-            }
-        } catch (e) {
-            console.error(e.message);
-        }
+        const formData = new FormData();
+        const month = new Date().getMonth()+1;
+        const year = new Date().getFullYear();
+        formData.append("file", dataFile);
+        const result = postFunction(`files/upload`,formData,true);
+        const data = ({  month: month,
+                        year: year,
+                        amount : groceriesAmount,
+                        fileName : result
+                        });
+        postFunction(`declarations/upload`,data, false);
         toggleLoading(false);
     }
 

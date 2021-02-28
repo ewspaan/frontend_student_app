@@ -1,17 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "../header/Header.css";
-import {Route, useHistory} from 'react-router-dom';
 import { Button } from "../../atoms/button/Button";
 import { Heading } from "../../atoms/heading/Heading";
 import DeclarationPage from "../../../pages/roommatePages/DeclarationPage";
-import RoommateSignUpForm from "../roommateSignUpForm/RoommateSignUpForm";
 import AddRoommatePage from "../../../pages/elderPages/AddRoomMatePage";
-import LoginPage from "../../../pages/Login";
-import HouseAccountSummary from "../../../pages/roommatePages/HouseAccountSummary";
 import DeclarationSummaryPage from "../../../pages/elderPages/DeclarationSummaryPage";
 import ProfilePage from "../../../pages/ProfilePage";
-import ProfileUser from "../profile/ProfileUser";
 import HeaderProfile from "./HeaderProfile";
+import HouseAccountPage from "../../../pages/elderPages/HouseAccountPage";
 
 
 function HeaderHouseElder(){
@@ -37,7 +33,7 @@ function HeaderHouseElder(){
                 <Button
                     type="button"
                     onClick={() => {
-                        setElement(<HouseAccountSummary/>);
+                        setElement(<HouseAccountPage/>);
                     }}
                 >
                     Huisrekening overzicht

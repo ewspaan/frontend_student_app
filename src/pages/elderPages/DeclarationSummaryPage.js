@@ -13,25 +13,14 @@ function DeclarationSummaryPage () {
     const [declarationsToCheck, setDeclarationsToCheck] = useState(null);
 
     async function getDeclarations() {
-            try {
-                const result = await getFunction("declarations/all");
-                setDeclarationsToCheck(result);
+        try{
+            const result = await getFunction(`declarations/all`);
+            setDeclarationsToCheck(result);
+            console.log(result);
             } catch (e) {
                 console.error(e.message);
             }
         }
-    async function getGroceriesPicture() {
-        const id = declarationsToCheck[0].fileId;
-        try{
-            const result = await getFunction(`files/download/${id}`, true);
-            console.log(result);
-            //setGroceriesPicture(result);
-        } catch (e) {
-            console.error(e.message);
-        }
-    }
-
-
 
     useEffect(()=> {
         getDeclarations();
@@ -40,19 +29,11 @@ function DeclarationSummaryPage () {
     return(
         <div className={styles["declaration-list"]}>
             <Heading level={1} children="Declaraties overzicht"/>
-            <img src={groceriesPicture} alt="Preview" className={styles.image}/>
             <div className={styles.huisgenoot}>
-                {declarationsToCheck && declarationsToCheck.map((declaration) =>(
-                    <>
-                        <p className={declaration.declarationId}>Huisgenoot: {declaration.firstName} {declaration.lastName} Totaal bedrag: &euro; {amount}</p>
-                        <Button
-                            className={declaration.declarationId}
-                            onClick={(e)=> {
-                                getGroceriesPicture();
-                                console.log("e--> ",e);
-                            }}
-                            >Check</Button>
-                    </>
+                {declarationsToCheck === null && declarationsToCheck.map((declaration) =>(
+                    <ul>
+                        <li className={declaration.amount}>Huisgenoot: {declaration.firstName} {declaration.lastName} Totaal bedrag: &euro; {declaration.amount}</li>
+                    </ul>
                     ))
                 }
             </div>

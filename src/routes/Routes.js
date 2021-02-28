@@ -8,49 +8,43 @@ import HeaderTop from "../components/organisms/header/HeaderTop";
 import ElderPage from "../pages/ElderPage";
 import RoommatePage from "../pages/RoommatePage";
 import {PrivateRoute} from "../components/molecules/privateRoute/PrivateRoute";
+import HeaderRoomMate from "../components/organisms/header/HeaderRoomMate";
 
 
 
 
 function Routes() {
-    const history = useHistory();
     const { isAuthenticated , user } = useAuthState();
-    const [page, setPage] = useState("empty");
+    const [page, setPage] = useState(<header>Bla</header>);
 
     useEffect(() => {
 
-        if(user !== null & isAuthenticated){
+        if(user !== null && isAuthenticated){
             switch(user.roles) {
                 case "ROLE_MODERATOR":
-                    setPage("elder");
-                    history.push('/huisoudste');
+                    setPage(<ElderPage/>);
                     break;
                 case "ROLE_USER":
-                    setPage("roommate");
-                    history.push('/huisgenoot');
+                    setPage(<RoommatePage/>);
                     break;
                 default:
-                    setPage("empty");
+                    setPage(<header>Bla</header>);
                     break;
             }
         }
-    },[history, isAuthenticated, user])
+    },[ isAuthenticated])
 
     return(
         <>
             <HeaderTop/>
             <Switch>
                 <Route exact path="/" component={HomePage} />
-                <PrivateRoute exact path="/huisoudste">
-                    {page === "elder" ?
-                        <ElderPage/> : <p>Deze pagina is alleen beschikbaar voor de huisoudste</p>
-                    }
-                </PrivateRoute>
-                <PrivateRoute exact path="/huisgenoot">
-                    {page === "roommate" ?
-                        <RoommatePage/> : <p>Deze pagina is alleen beschikbaar voor de huisgenoten</p>
-                    }
-                </PrivateRoute>
+                {isAuthenticated && <Route exact path="/huisoudste">
+                    <ElderPage/>
+                </Route>}
+                {isAuthenticated && <Route exact path="/huisgenoot">
+                    <RoommatePage/>
+                </Route>}
                 <Route path="/login" component={ LoginPage }/>
                 <Route path="/signup" component={ SignUpPage }/>
             </Switch>

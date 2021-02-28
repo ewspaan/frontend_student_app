@@ -5,6 +5,8 @@ import { Heading } from "../../atoms/heading/Heading";
 import DeclarationPage from "../../../pages/roommatePages/DeclarationPage";
 import ProfilePage from "../../../pages/ProfilePage";
 import HeaderProfile from "./HeaderProfile";
+import HouseAccountPage from "../../../pages/elderPages/HouseAccountPage";
+
 
 function HeaderRoomMate(){
 
@@ -36,7 +38,7 @@ function HeaderRoomMate(){
                 </Button>
                 <Button
                     type="button"
-                    onClick={() => console.log("Huisrekening overzicht")}
+                    onClick={() => setElement(<HouseAccountPage/>)}
                 >
                     Huisrekening overzicht
                 </Button>
