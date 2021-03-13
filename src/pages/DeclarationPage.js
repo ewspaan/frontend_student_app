@@ -6,7 +6,7 @@ function DeclarationPage(){
 
 
     return (
-        <div className={styles.declarationdiv}>
+        <div className={styles.declarationDiv}>
             <DeclarationForm/>
         </div>
     );

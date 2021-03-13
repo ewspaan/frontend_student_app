@@ -6,6 +6,7 @@ import { CheckboxInput } from "../../molecules/checkboxInput/CheckboxInput";
 import { PasswordInput } from "../../molecules/passwordInput/PasswordInput";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
+import {ErrorMessage} from "../../atoms/errorMessage/ErrorMessage";
 
 
 export const SignUpForm = () => {
@@ -178,11 +179,8 @@ export const SignUpForm = () => {
                   {loading === false && "Versturen"}
               </Button>
           </form>
-
-          {error !== "" && <p>{error}</p>}
-
+          {error !== "" && <ErrorMessage>{error}</ErrorMessage>}
           <p>{succesFullSubmit ? "Het is gelukt! Je kunt " : "Heb je al een account? Je kunt " }<NavLink to="/login">hier</NavLink> inloggen.</p>
-          {/*<p>Het is gelukt! Je kunt <NavLink to="/login">hier</NavLink> inloggen.</p>*/}
       </FormProvider>
   );
 };

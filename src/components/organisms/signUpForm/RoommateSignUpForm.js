@@ -94,6 +94,8 @@ function RoommateSignUpForm(){
                         {loading === false && "Versturen"}
                     </Button>
                 </form>
+                {succesFullSubmit && <p>succes</p>}
+                {error && <p>succes</p>}
             </FormProvider>
     );
 }

@@ -1,12 +1,13 @@
 import {TextInput} from "../../molecules/textInput/TextInput";
 import {Link, useHistory} from 'react-router-dom';
-import React, { useState , useContext } from "react";
+import React, { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { PasswordInput } from "../../molecules/passwordInput/PasswordInput";
 import { CheckboxInput } from "../../molecules/checkboxInput/CheckboxInput";
 import { Button } from "../../atoms/button/Button";
 import axios from "axios";
-import { AuthContext } from "../../../context/authContext/AuthContext";
+import { useAuthState } from "../../../context/authContext/AuthContext";
+import {ErrorMessage} from "../../atoms/errorMessage/ErrorMessage";
 
 
 export const LoginForm = () => {
@@ -19,28 +20,22 @@ export const LoginForm = () => {
 
     // state voor gebruikersfeedback
     const [loading, toggleLoading] = useState(false);
-    const [error, setError] = useState('');
+    const [error, setError] = useState("");
+    const [succes, setSucces] = useState(false);
 
-    const { login } = useContext(AuthContext);
+    const { login } = useAuthState();
 
-
-    function onSubmit(data){
+    async function onSubmit(dataLogin) {
         toggleLoading(true);
-        console.log(data);
-        sendLogin(data);
-        history.push('/profiel');
-    }
-
-    async function sendLogin(dataLogin) {
-
         try {
             const result = await axios.post(`http://localhost:8080/api/auth/signin`, dataLogin);
             console.log("axios result--> ", result.data);
-            console.log("Token--> ", result.data.accessToken);
             login(result.data);
+            history.push('/profiel');
+
         } catch (e) {
             console.error(e);
-            setError('Inloggen is mislukt');
+            setError("Inloggen mislukt. Username of wachtwoord verkeerd");
         }
         toggleLoading(false);
     }
@@ -81,7 +76,7 @@ export const LoginForm = () => {
                     {loading === false && "Versturen"}
                 </Button>
             </form>
-            {error !== "" && <p>{error}</p>}
+            {error !== "" && <ErrorMessage>{error}</ErrorMessage>}
             <p>Heb je nog geen account? <Link to="/signup">Registreer</Link> je dan eerst.</p>
         </FormProvider>
     );

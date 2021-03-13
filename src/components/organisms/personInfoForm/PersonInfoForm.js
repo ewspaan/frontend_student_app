@@ -73,7 +73,7 @@ function PersonInfoForm({firstName,lastName,username,email,dateOfBirth}) {
                             }
                         })}
                     />}
-                    {dateOfBirth == true && <TextInput
+                    {dateOfBirth === true && <TextInput
                         name="dateOfBirth"
                         label="Geboortedatum: (DD-MM-JJJJ)"
                         fieldRef={register({

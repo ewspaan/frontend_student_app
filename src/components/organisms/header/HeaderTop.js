@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styles from "../header/Header.module.css";
 import { useHistory } from 'react-router-dom';
 import { Logo } from "../../atoms/Logo/Logo";
