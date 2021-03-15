@@ -1,10 +1,11 @@
 import React from 'react';
+import styles from"../Logo/Logo.module.css"
 import logo  from "../../../assets/logo3.svg";
-import "./Logo.css"
+
 
 export const Logo = () => (
 
-      <img src={logo}  alt="Logo" id="logoImg"/>
+      <img src={logo}  alt="Logo" className={styles.logo}/>
     );
 
 

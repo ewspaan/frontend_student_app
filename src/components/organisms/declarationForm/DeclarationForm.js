@@ -5,6 +5,7 @@ import { Button } from "../../atoms/button/Button";
 import { InputField } from "../../atoms/input/InputField";
 import { ErrorMessage } from "../../atoms/errorMessage/ErrorMessage";
 import postFunction from "../../../hooks/postFunction";
+import postDataFunction from "../../../hooks/postDataFunction";
 
 function DeclarationForm(){
 
@@ -15,17 +16,29 @@ function DeclarationForm(){
     const [selectedFile, setSelectedFile] = useState(null );
     const {handleSubmit, register, errors } = useForm();
 
-    function handleImageChange(e) {
+    async function handleImageChange(e) {
         e.preventDefault();
         const reader = new FileReader();
         const file = e.target.files[0];
-
+        const file64 = await convertBase64(file);
         //setSelectedFile(file);
         reader.readAsDataURL(file);
         reader.onloadend = () => {
-            setSelectedFile(file);
+            setSelectedFile(file64);
             setImagePreviewUrl(reader.result);
         }
+    }
+    const convertBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const fileReader= new FileReader()
+            fileReader.readAsDataURL(file)
+            fileReader.onload = ( () => {
+                resolve(fileReader.result);
+            });
+            fileReader.onerror = ((error) => {
+                reject(error);
+            });
+        });
     }
 
     //preview van image laden
@@ -38,21 +51,27 @@ function DeclarationForm(){
 
     //file uploaden en declaratie
     async function submitFile(dataFile) {
-        console.log("addFile-->  " , dataFile.groceryAmount , dataFile.fileInput);
-        toggleLoading(true);
-        //Haal de komma uit het bedrag
         const str = dataFile.groceryAmount;
         const correctGroceriesAmount = str.replace(",",".");
-        const formData = new FormData();
-        formData.append("file", selectedFile);
-        formData.append("amount", correctGroceriesAmount);
-        try {
-            await postFunction(`declarations/upload`, formData, true);
-        }
-        catch (e){
-            console.error(e);
-        }
+        toggleLoading(true);
+        const data = { fileName: selectedFile,
+                        amount: correctGroceriesAmount};
+        console.log("addFile-->  " , data);
+        const result = await postDataFunction("declarations/upload", data);
+        console.log("declaresult-->  ", result);
+        // //Haal de komma uit het bedrag
 
+        // const correctGroceriesAmount = str.replace(",",".");
+        // const formData = new FormData();
+        // formData.append("file", selectedFile);
+        // formData.append("amount", correctGroceriesAmount);
+        // try {
+        //     await postFunction(`declarations/upload`, formData, true);
+        // }
+        // catch (e){
+        //     console.error(e);
+        // }
+        //
         toggleLoading(false);
     }
 
