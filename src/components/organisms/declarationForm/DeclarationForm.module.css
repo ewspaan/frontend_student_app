@@ -1,0 +1,32 @@
+.preview_component{
+    display: flex;
+    flex-direction: column;
+}
+
+.image_form {
+    padding: 8px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-evenly;
+}
+.image_preview{
+    border: 2px solid deepskyblue;
+    border-radius: 4px;
+    width: 300px;
+    height: auto;
+}
+
+.image_preview img{
+    max-height: 100%;
+    width: 100%;
+}
+
+.container{
+    width: 600px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    flex-direction: row;
+}

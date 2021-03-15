@@ -9,14 +9,12 @@ async function getFunction(url) {
                                     Authorization: `Bearer ${token}`,
                                     }
                             }
-
-        //console.log("config--> ", config);
         try {
             const result = await axios.get(
                 urlGet,
                 config
                 );
-            console.log("axios result get function--> ", result);
+            //console.log("axios result get function--> ", result);
             return result.data;
         } catch (e) {
             console.error(e.message);

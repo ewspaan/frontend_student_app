@@ -1,21 +1,13 @@
 import React from 'react';
+import RoommateSummary from "../components/organisms/RoommateSummary/RoommateSummary";
 
 function RoommatePage (){
 
 
-    return(
-        <>
-            <p>Blabla</p>
-            <p>Blabla</p>
-            <p>Blabla</p>
-            <p>Blabla</p>
-            <p>Blabla</p>
-            <p>Blabla</p>
-            <p>Blabla</p>
-            <p>Blabla</p>
-            <p>Blabla</p>
-        </>
+
+    return (
+        <RoommateSummary/>
     );
-};
+}
 
 export default RoommatePage;

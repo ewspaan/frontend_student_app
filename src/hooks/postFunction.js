@@ -21,7 +21,7 @@ async function postFunction(url, data , file) {
         const result = await axios.post(urlPost,
             data, config
             )
-        console.log("axios result--> ", result.data);
+        console.log("axios result-file-> ", result.data);
         if (result.status === 200){
         return result.data;
         }
