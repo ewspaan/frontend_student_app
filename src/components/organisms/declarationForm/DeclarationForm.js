@@ -4,7 +4,6 @@ import styles from '../declarationForm/DeclarationForm.module.css';
 import { Button } from "../../atoms/button/Button";
 import { InputField } from "../../atoms/input/InputField";
 import { ErrorMessage } from "../../atoms/errorMessage/ErrorMessage";
-import postFunction from "../../../hooks/postFunction";
 import postDataFunction from "../../../hooks/postDataFunction";
 
 function DeclarationForm(){

@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 
 
 function HouseBill(){
 
 
 
-    // const [bill, setBill] = useState(null);
-    // const [month, setMonth] = useState(0);
+    const [bill, setBill] = useState(null);
+
+    async function getBill() {
+
+
+
+    }
 
 
 
