@@ -6,7 +6,7 @@ import { CheckboxInput } from "../../molecules/checkboxInput/CheckboxInput";
 import { PasswordInput } from "../../molecules/passwordInput/PasswordInput";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
-import {ErrorMessage} from "../../atoms/errorMessage/ErrorMessage";
+import { ErrorMessage } from "../../atoms/errorMessage/ErrorMessage";
 
 
 export const SignUpForm = () => {
@@ -49,9 +49,6 @@ export const SignUpForm = () => {
 
 
     async function addClient(dataClient) {
-        //Delay om loading te testen
-        setTimeout(() => {
-        }, 2000);
         try {
 
             const result = await axios.post(`http://localhost:8080/api/auth/signup`, dataClient, null);

@@ -18,7 +18,7 @@ function HouseAccountPage(){
     return(
         <div className={styles.accountdiv}>
             {update ? <ProfileHouse/> : <UpdateFormAccount/>}
-            {user && user.roles === "ROLE_MODERATOR" &&
+            {user && user.roles === "Huisoudste" &&
             <Button
             onClick={()=>toggleUpdate(!update)}>
                 {update ? "Update account" : "Terug naar Profiel"}

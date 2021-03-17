@@ -3,7 +3,7 @@ import styles from "./PersonInfoForm.module.css";
 import { FormProvider, useForm } from "react-hook-form";
 import { TextInput } from "../../molecules/textInput/TextInput";
 import { Button } from "../../atoms/button/Button";
-import postFunction from "../../../hooks/postFunction";
+import postDataFunction from "../../../hooks/postDataFunction";
 
 
 
@@ -23,7 +23,7 @@ function PersonInfoForm({firstName,lastName,username,email,dateOfBirth}) {
             passwordRepeat: data.passwordRepeat
         });
         console.log("client--> ", client);
-        postFunction("users/update", client , false);
+        const result = postDataFunction("users/update", client);
     }
 
     return (

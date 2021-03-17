@@ -1,56 +1,98 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import styles from "../declarationSummaryField/DeclarationSummaryField.module.css"
 import getFunction from "../../../hooks/getFunction";
 import { Heading } from "../../atoms/heading/Heading";
-import { Button } from "../../atoms/button/Button";
-import { Logo } from "../../atoms/Logo/Logo";
+import {CheckButtonCorrect} from "../../atoms/checkButton/CheckButtonCorrect";
+import {CheckButtonInCorrect} from "../../atoms/checkButton/CheckButtonInCorrect";
+import putFunction from "../../../hooks/putFunction";
+import {Button} from "../../atoms/button/Button";
+
 
 function DeclarationSummaryField() {
 
 
     const [declarationsToCheck, setDeclarationsToCheck] = useState(null);
-    const [image, setImage] = useState()
+    const [correctDeclarations, setCorrectDeclarations] = useState(null);
+
+    useEffect(() => {
+        getDeclarations();
+    },[]);
 
     async function getDeclarations() {
 
-            const result = await getFunction(`declarations/all`);
-            setDeclarationsToCheck(result);
-            console.log(result);
+        const result = await getFunction(`declarations/all/${true}`);
+        setDeclarationsToCheck(result);
     }
+
+    async function getCorrectDeclarations(){
+
+        if (correctDeclarations === null) {
+            const result = await getFunction(`declarations/all/${false}`);
+            setCorrectDeclarations(result);
+        }else {
+            setCorrectDeclarations(null);
+        }
+    }
+
+    async function checkDeclaration(data){
+
+        const check = {id: data.Id,
+                        correct: data.correct}
+        console.log("data decla--> " , check);
+        const result = await putFunction("declarations/update",check)
+        console.log("deca update--> " , result);
+        getDeclarations();
+    }
+
+
+
 
     return (
         <div>
             <Heading level={1} children="Declaraties overzicht"/>
-            {image && <img className={styles.image} src={image}  alt="Logo" id="logoImg"/>}
             <div >
                 {declarationsToCheck !== null && declarationsToCheck.map((declaration) => (
                     <ul key={declaration.id}>
-                        <li className={styles.listItem}>Huisgenoot: {declaration.firstName} {declaration.lastName} Totaal
-                            bedrag: &euro; {declaration.amount}
-                            <Button
-                                onClick={(e)=> {
-                                    console.log(declaration.firstName)
-                                    setImage(declaration.fileName)}}
-                            >
-                                Correct
-                            </Button>
-                            <Button
-                                onClick={(e)=>{
-                                    console.log(declaration.firstName)
-                                    setImage(declaration.fileName)}}
-                            >
-                                Not correct
-                            </Button>
+                        <li className={styles.listItem}>
+                            <p>Huisgenoot: {declaration.firstName} {declaration.lastName} Totaal
+                                bedrag: &euro; {declaration.amount}</p>
+                            <div>
+                            <img className={styles.image} src={declaration.fileName}  alt="Logo" id="logoImg"/>
+                            <CheckButtonCorrect
+                                onClick={(e) => {
+                                    checkDeclaration({Id: declaration.id, correct: true})
+                                    }
+                                }/>
+                            <CheckButtonInCorrect
+                                onClick={(e) => {
+                                    checkDeclaration({Id: declaration.id, correct: false})
+                                }}
+                            />
+                            </div>
                         </li>
                     </ul>
                 ))
                 }
             </div>
+            {correctDeclarations === null ?
             <Button
-                onClick={getDeclarations}
-            >
-                +
-            </Button>
+                onClick={getCorrectDeclarations}
+            > Haal correcte declaraties op </Button> :
+            <Button
+                onClick={getCorrectDeclarations}
+            > Verberg correcte declaraties </Button>}
+            <div >
+                {correctDeclarations !== null && correctDeclarations.map((declaration) => (
+                    <ul key={declaration.id}>
+                        <li className={styles.listItem}>
+                            <p>Huisgenoot: {declaration.firstName} {declaration.lastName} Totaal
+                                bedrag: &euro; {declaration.amount}</p>
+                            <img className={styles.image} src={declaration.fileName}  alt="Logo" id="logoImg"/>
+                        </li>
+                    </ul>
+                ))
+                }
+            </div>
         </div>
     );
 }

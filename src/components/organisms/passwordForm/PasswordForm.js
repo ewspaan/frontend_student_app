@@ -5,7 +5,7 @@ import { CheckboxInput } from "../../molecules/checkboxInput/CheckboxInput";
 import { PasswordInput } from "../../molecules/passwordInput/PasswordInput";
 import { ErrorMessage } from "../../atoms/errorMessage/ErrorMessage";
 import { Button } from "../../atoms/button/Button";
-import postFunction from "../../../hooks/postFunction";
+import postDataFunction from "../../../hooks/postDataFunction";
 
 function PasswordForm ({setPassword, minLengthPassword}) {
     const [showPassword, toggleShowPassword] = useState("password");
@@ -27,7 +27,7 @@ function PasswordForm ({setPassword, minLengthPassword}) {
     function onSubmit(data){
             const password = { password: data.password,
                                 passwordRepeat : data.passwordRepeat};
-            const result = postFunction("users/update", password, false);
+            const result = postDataFunction("users/update", password);
             console.log("Result-passwordform-> ", result);
         }
 

@@ -2,7 +2,8 @@ import React from "react";
 import { TextInput } from "../../molecules/textInput/TextInput";
 import { Button } from "../../atoms/button/Button";
 import { FormProvider, useForm } from "react-hook-form";
-import postFunction from "../../../hooks/postFunction";
+import putFunction from "../../../hooks/putFunction";
+
 
 function UpdateFormAccount(){
     const { register, unregister, watch, getValues, handleSubmit,errors,setValue, ...methods} = useForm();
@@ -14,7 +15,8 @@ function UpdateFormAccount(){
             elektraUtility: data.elektraUtility,
             internetUtility: data.internetUtility,
         })
-        postFunction(`accounts/update`, account,false);
+        const result = putFunction("accounts/update", account);
+        console.log(result);
     }
 
 
@@ -27,7 +29,7 @@ function UpdateFormAccount(){
                 />
                 <TextInput
                     name="waterUtility"
-                    label="Voornaam:"
+                    label="Kosten water:"
                     fieldRef={register({
                         required: false,
                         pattern: {
@@ -38,7 +40,7 @@ function UpdateFormAccount(){
                 />
                 <TextInput
                     name="gasUtility"
-                    label="Achternaam:"
+                    label="Kosten gas:"
                     fieldRef={register({
                         required: false,
                         pattern: {
@@ -49,7 +51,7 @@ function UpdateFormAccount(){
                 />
                 <TextInput
                     name="elektraUtility"
-                    label="Username:"
+                    label="Kosten elektra:"
                     fieldRef={register({
                         required: false,
                         pattern: {
@@ -60,7 +62,7 @@ function UpdateFormAccount(){
                 />
                 <TextInput
                     name="internetUtility"
-                    label="Email:"
+                    label="Kosten internet:"
                     fieldRef={register({
                         required: false,
                         pattern: {
