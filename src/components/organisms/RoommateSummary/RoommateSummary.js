@@ -16,7 +16,7 @@ function RoommateSummary (){
         async function getRoommates() {
 
                 const result = await getFunction(`users/all`);
-                setRoommates(result);
+                await setRoommates(result.data);
                 //console.log("Roommates--> " , result);
         }
         getRoommates();

@@ -63,7 +63,8 @@ function AuthContextProvider ({ children }){
 
     async function setUserAndHouse(){
         try{
-            const response = await getFunction("users/download");
+            const result = await getFunction("users/download");
+            const response = result.data;
             console.log("setUserAndHous-->  ", response);
             let role = "";
             if(response.roles === "ROLE_MODERATOR") {
@@ -83,6 +84,7 @@ function AuthContextProvider ({ children }){
                     dateOfBirth: response.dateOfBirth,
                     roles: role},
                 house: {
+                    houseId: response.houseId,
                     houseName: response.houseName,
                     accountNumber: response.accountNumber,
                     waterUtility: response.waterUtility,

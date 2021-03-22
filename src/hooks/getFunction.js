@@ -14,11 +14,11 @@ async function getFunction(url) {
                 urlGet,
                 config
                 );
-            //console.log("axios result get function--> ", result);
-            return result.data;
+            console.log("axios result get function--> ", result);
+            return result;
         } catch (e) {
             console.error(e.message);
-            return e.message;
+            return e;
         }
 }
 

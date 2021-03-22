@@ -5,6 +5,7 @@ import HouseBill from "../components/organisms/houseBill/HouseBill";
 import {Button} from "../components/atoms/button/Button";
 import UpdateFormAccount from "../components/organisms/updateForm/UpdateFormAccount";
 import {useAuthState} from "../context/authContext/AuthContext";
+import HouseBillUser from "../components/organisms/houseBill/HouseBillUser";
 
 
 function HouseAccountPage(){
@@ -16,15 +17,19 @@ function HouseAccountPage(){
 
 
     return(
-        <div className={styles.accountdiv}>
-            {update ? <ProfileHouse/> : <UpdateFormAccount/>}
-            {user && user.roles === "Huisoudste" &&
-            <Button
-            onClick={()=>toggleUpdate(!update)}>
-                {update ? "Update account" : "Terug naar Profiel"}
-            </Button>}
-            <HouseBill/>
-        </div>
+        <>
+            <div className={styles.accountDiv}>
+                {update ? <ProfileHouse/> : <UpdateFormAccount/>}
+                {user && user.roles === "Huisoudste" &&
+                <Button
+                onClick={()=>toggleUpdate(!update)}>
+                    {update ? "Update account" : "Terug naar Profiel"}
+                </Button>}
+            </div>
+                {user && user.roles === "Huisoudste" ?
+                    <HouseBill/> :
+                    <HouseBillUser/>}
+        </>
     );
 }
 

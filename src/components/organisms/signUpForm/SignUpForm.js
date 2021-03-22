@@ -34,17 +34,6 @@ export const SignUpForm = () => {
         setError("");
         addClient(client)
     }
-    //Test data setten
-    useEffect(() => {
-    setValue("firstName", "Blablabla")
-    setValue("lastName", "de Vries")
-    setValue("username", "blablabla")
-    setValue("email", "blaatbv@gmail.com")
-    setValue("dateOfBirth", "06-07-1988")
-    setValue("password", "12345678")
-    setValue("passwordRepeat", "12345678")
-    setValue("agree", true)
-    },[]);
 
 
 

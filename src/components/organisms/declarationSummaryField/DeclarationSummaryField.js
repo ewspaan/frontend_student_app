@@ -21,14 +21,14 @@ function DeclarationSummaryField() {
     async function getDeclarations() {
 
         const result = await getFunction(`declarations/all/${true}`);
-        setDeclarationsToCheck(result);
+        await setDeclarationsToCheck(result.data);
     }
 
     async function getCorrectDeclarations(){
 
         if (correctDeclarations === null) {
             const result = await getFunction(`declarations/all/${false}`);
-            setCorrectDeclarations(result);
+            await setCorrectDeclarations(result.data);
         }else {
             setCorrectDeclarations(null);
         }
@@ -38,14 +38,10 @@ function DeclarationSummaryField() {
 
         const check = {id: data.Id,
                         correct: data.correct}
-        console.log("data decla--> " , check);
         const result = await putFunction("declarations/update",check)
         console.log("deca update--> " , result);
-        getDeclarations();
+        await getDeclarations();
     }
-
-
-
 
     return (
         <div>

@@ -13,13 +13,6 @@ function RoommateSignUpForm(){
     const [error, setError] = useState("");
 
 
-    //test data setten
-    useEffect(() => {
-        setValue("firstName", "Blabla")
-        setValue("lastName", "van Bla")
-        setValue("email", "hmmmmm@gmail.com")
-    },[]);
-
 
     async function addClient(dataClient) {
 
