@@ -25,9 +25,9 @@ function Routes() {
                 <Route exact path="/" component={ HomePage } />
                 <Route path="/login" component={ LoginPage }/>
                 <Route path="/signup" component={ SignUpPage }/>
-                <ElderRoute path="/declaratie/overzicht">
+                <Route path="/declaratie/overzicht">
                     <DeclarationSummaryPage/>
-                </ElderRoute>
+                </Route>
                 <ElderRoute path="/huisgenoten/toevoegen" >
                     <AddRoommatePage/>
                 </ElderRoute>

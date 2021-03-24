@@ -27,12 +27,12 @@ function HeaderProfile() {
                    >
                        Huisrekening overzicht
                    </Button>
-                   {user !== null && user.roles === "Huisoudste" && <Button
+                   <Button
                        type="button"
                        onClick={() => history.push('/declaratie/overzicht')}
                    >
                        Declaraties overzicht
-                   </Button>}
+                   </Button>
                    <Button
                        type="button"
                        onClick={() => history.push('/declaratie')}
