@@ -5,7 +5,7 @@ import { useAuthState } from "../context/authContext/AuthContext";
 
 function ElderRoute({children, ...rest}) {
 
-    const { isAuthenticated , user } = useAuthState();
+    const { user } = useAuthState();
 
 
 

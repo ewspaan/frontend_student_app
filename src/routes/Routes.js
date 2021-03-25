@@ -12,6 +12,8 @@ import DeclarationSummaryPage from "../pages/DeclarationSummaryPage";
 import AddRoommatePage from "../pages/AddRoomMatePage";
 import ElderRoute from "./ElderRoute";
 import RoommateRoute from "./RoommateRoute";
+import DeclarationCheckPage from "../pages/DeclarationCheckPage";
+import HouseBillCheckPage from "../pages/HouseBillCheckPage";
 
 
 function Routes() {
@@ -25,24 +27,32 @@ function Routes() {
                 <Route exact path="/" component={ HomePage } />
                 <Route path="/login" component={ LoginPage }/>
                 <Route path="/signup" component={ SignUpPage }/>
-                <Route path="/declaratie/overzicht">
+
+                <RoommateRoute exact path="/declaratie">
+                    <DeclarationPage/>
+                </RoommateRoute>
+                <RoommateRoute path="/declaratie/overzicht">
                     <DeclarationSummaryPage/>
-                </Route>
-                <ElderRoute path="/huisgenoten/toevoegen" >
-                    <AddRoommatePage/>
-                </ElderRoute>
-                <RoommateRoute path="/profiel">
-                    <ProfilePage/>
                 </RoommateRoute>
                 <RoommateRoute exact path="/huisgenoten" >
                     <RoommatePage/>
                 </RoommateRoute>
-                <RoommateRoute exact path="/declaratie">
-                    <DeclarationPage/>
+                <RoommateRoute path="/profiel">
+                    <ProfilePage/>
                 </RoommateRoute>
-                <RoommateRoute path="/huisrekening">
+                <RoommateRoute exact path="/huisrekening/overzicht">
                     <HouseAccountPage/>
                 </RoommateRoute>
+
+                <ElderRoute path="/declaratie/keuren">
+                    <DeclarationCheckPage/>
+                </ElderRoute>
+                <ElderRoute path="/huisgenoten/toevoegen" >
+                    <AddRoommatePage/>
+                </ElderRoute>
+                <ElderRoute path="/huisrekening/keuren">
+                    <HouseBillCheckPage/>
+                </ElderRoute>
             </Switch>
         </>
     );

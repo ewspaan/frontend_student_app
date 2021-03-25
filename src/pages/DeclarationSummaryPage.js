@@ -8,13 +8,12 @@ import {useAuthState} from "../context/authContext/AuthContext";
 
 function DeclarationSummaryPage () {
 
-    const { user } = useAuthState();
+
 
 
     return (
         <div>
-            {user && user.roles === "Huisoudste" && <DeclarationSummaryField/>}
-            {user && user.roles === "Huisgenoot" && <DeclarationSummaryFieldUser/>}
+            <DeclarationSummaryFieldUser/>
         </div>
     );
 

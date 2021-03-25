@@ -4,6 +4,9 @@ import {Button} from "../../atoms/button/Button";
 import {useAuthState} from "../../../context/authContext/AuthContext";
 import {useHistory} from "react-router-dom";
 import {Heading} from "../../atoms/heading/Heading";
+import { UserButton } from "../../atoms/button/UserButton";
+import { AdminButton } from "../../atoms/button/AdminButton";
+
 function HeaderProfile() {
 
     const { user } = useAuthState();
@@ -15,42 +18,54 @@ function HeaderProfile() {
            <header className={styles.header}>
                <Heading children="Hoi" level={2}> </Heading>
                <>
-                   <Button
+                   <UserButton
                        type="button"
                        onClick={() => history.push('/huisgenoten')}
                    >
                        Huisgenoten
-                   </Button>
-                   <Button
+                   </UserButton>
+                   <UserButton
                        type="button"
-                       onClick={() => history.push('/huisrekening')}
+                       onClick={() => history.push('/huisrekening/overzicht')}
                    >
                        Huisrekening overzicht
-                   </Button>
-                   <Button
+                   </UserButton>
+                   <AdminButton
+                        type="button"
+                        onClick={() => history.push('/huisrekening/keuren')}
+                   >
+                       Huisrekening controleren
+                   </AdminButton>
+                   <UserButton
                        type="button"
                        onClick={() => history.push('/declaratie/overzicht')}
                    >
-                       Declaraties overzicht
-                   </Button>
-                   <Button
+                       Persoonlijke declaraties
+                   </UserButton>
+                   <AdminButton
+                       type="button"
+                       onClick={() => history.push('/declaratie/keuren')}
+                   >
+                       Declaraties keuren
+                   </AdminButton>
+                   <UserButton
                        type="button"
                        onClick={() => history.push('/declaratie')}
                    >
                        Boodschappen declareren
-                   </Button>
-                   {user !== null && user.roles === "Huisoudste" && <Button
+                   </UserButton>
+                   <AdminButton
                        type="button"
                        onClick={() => history.push('/huisgenoten/toevoegen')}
                    >
                        Huisgenoten toevoegen
-                   </Button>}
-                   <Button
+                   </AdminButton>
+                   <UserButton
                        type="button"
                        onClick={() => history.push('/profiel')}
                    >
                        Profiel
-                   </Button>
+                   </UserButton>
                </>
            </header>
 

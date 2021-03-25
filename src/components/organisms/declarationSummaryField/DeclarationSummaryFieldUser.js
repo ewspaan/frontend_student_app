@@ -30,6 +30,7 @@ function DeclarationSummaryFieldUser() {
         if (correctDeclarations === null) {
             const result = await getFunction(`declarations/personal/${true}`);
             await setCorrectDeclarations(result.data);
+            console.log("correcte decla-->  ", result.data);
         }else {
             setCorrectDeclarations(null);
         }
