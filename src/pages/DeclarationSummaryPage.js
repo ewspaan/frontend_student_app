@@ -1,18 +1,14 @@
 import React from "react";
-import DeclarationSummaryField from "../components/organisms/declarationSummaryField/DeclarationSummaryField";
 import DeclarationSummaryFieldUser from "../components/organisms/declarationSummaryField/DeclarationSummaryFieldUser";
-import {useAuthState} from "../context/authContext/AuthContext";
+import styles from "./Page.module.css";
 
 
 
 
 function DeclarationSummaryPage () {
 
-
-
-
     return (
-        <div>
+        <div className={styles.page}>
             <DeclarationSummaryFieldUser/>
         </div>
     );

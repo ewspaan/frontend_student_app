@@ -1,6 +1,7 @@
 .preview_component{
     display: flex;
     flex-direction: column;
+
 }
 
 .image_form {
@@ -15,18 +16,33 @@
     border: 2px solid deepskyblue;
     border-radius: 4px;
     width: 300px;
-    height: auto;
+    height: 600px;
 }
 
-.image_preview img{
+.previewImage{
     max-height: 100%;
     width: 100%;
 }
 
-.container{
+.container {
     width: 600px;
     display: flex;
-    justify-content: flex-end;
-    align-items: flex-start;
+    justify-content: center;
     flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.container p {
+    border-radius: 4px;
+    border: 2px solid deepskyblue;
+    color: black;
+    padding: 8px 16px;
+    background-color: white;
+    font-weight: bold;
+}
+@media screen and (min-width: 606px){
+
+    .container {
+        flex-wrap: nowrap;
+    }
 }

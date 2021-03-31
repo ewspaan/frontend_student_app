@@ -1,22 +1,23 @@
 import React from 'react';
-import styles from "./ProfilePage.module.css"
+import { useHistory } from 'react-router-dom';
+import styles from "./Page.module.css";
 import ProfileUser from "../components/organisms/profile/ProfileUser";
-import PersonInfoForm from "../components/organisms/personInfoForm/PersonInfoForm";
-import PasswordForm  from "../components/organisms/passwordForm/PasswordForm";
+import {Button} from "../components/atoms/button/Button";
 
 function ProfilePage(){
 
+    const  history  = useHistory();
+
 
     return(
-        <div className={styles.profile}>
+        <div className={styles.page}>
             <ProfileUser/>
-            <PersonInfoForm
-                firstName={true}
-                lastName={true}
-                username={false}
-                email={true}
-                dateOfBirth={true}/>
-            <PasswordForm minLengthPassword={6}/>
+            <Button
+                onClick={() => history.push("/profiel/veranderprofiel")}
+            >Edit profiel</Button>
+            <Button
+                onClick={() => history.push("/profiel/veranderwachtwoord")}
+            >Verander wachtwoord</Button>
         </div>
     );
 }

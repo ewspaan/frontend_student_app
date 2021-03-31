@@ -9,6 +9,6 @@ export const CheckButtonInCorrect = ({ type , onClick , disabled }) =>(
         type={type}
         onClick={onClick}
         disabled={disabled}>
-        <img src={cross}  alt="Logo" className={styles.image}/>
+        <img src={cross}  alt="Logo" className={styles.imageInCorrect}/>
     </button>
 );

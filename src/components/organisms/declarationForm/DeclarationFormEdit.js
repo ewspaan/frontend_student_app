@@ -4,12 +4,11 @@ import styles from '../declarationForm/DeclarationForm.module.css';
 import { Button } from "../../atoms/button/Button";
 import { InputField } from "../../atoms/input/InputField";
 import { ErrorMessage } from "../../atoms/errorMessage/ErrorMessage";
-import postDataFunction from "../../../hooks/postDataFunction";
 import getFunction from "../../../hooks/getFunction";
 import {Label} from "../../atoms/label/Label";
 import putFunction from "../../../hooks/putFunction";
 
-function DeclarationFormEdit({id}){
+function DeclarationFormEdit({id,toggleEdit}){
 
     const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
     const [imagePreview, setImagePreview] = useState(null);
@@ -45,7 +44,7 @@ function DeclarationFormEdit({id}){
         if (!imagePreviewUrl) {
             setImagePreview(<div className="previewText">Selecteer bon om mee te sturen</div>);
         }else {
-            setImagePreview(<img src={imagePreviewUrl} alt="Preview"/>);
+            setImagePreview(<img className={styles.previewImage} src={imagePreviewUrl} alt="Preview"/>);
         }
     },[imagePreviewUrl]);
 
@@ -60,6 +59,7 @@ function DeclarationFormEdit({id}){
         const result = await putFunction("declarations/edit", data);
         console.log("declaresult-->  ", result);
         toggleLoading(false);
+        toggleEdit(true);
     }
 
     return(

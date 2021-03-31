@@ -2,6 +2,7 @@ import React, { useState , useEffect } from "react";
 import getFunction from "../../../hooks/getFunction";
 import intToMonth from "../../../hooks/intToMonth";
 import {Button} from "../../atoms/button/Button";
+import styles from "./HouseBill.module.css";
 
 function HouseBillUser(){
 
@@ -16,7 +17,6 @@ function HouseBillUser(){
     async function getBill(payed) {
 
         const result = await getFunction(`bills/personal/${payed}`);
-        console.log("Billuserpersonal--> " , result.data);
         if(result.status === 200 ) {
             if(!payed) {
                 await setBill(result.data);
@@ -39,11 +39,11 @@ function HouseBillUser(){
 
 
     return(
-        <>
+        <div className={styles.house}>
             {bill !== null && bill.map((billEntry) =>
                 <ul key={billEntry.month + billEntry.year} >
-                    <li> Te betalen voor {intToMonth(billEntry.month)} {billEntry.year}: {billEntry.toPayMonth} </li>
-                    <li> Totale declaraties: {billEntry.declarationsUser}</li>
+                    <li><p>Te betalen voor {intToMonth(billEntry.month)} {billEntry.year}:</p><p> &euro; {billEntry.toPayMonth}</p></li>
+                    <li><p>Totale declaraties:</p><p>&euro; {billEntry.declarationsUser}</p></li>
                 </ul> )}
                 <Button
                     onClick={getPayedBills}
@@ -52,11 +52,10 @@ function HouseBillUser(){
                 </Button>
             {payedBills !== null && payedBills.map((billEntry) =>
                 <ul key={billEntry.month + billEntry.year} >
-                    <li> Betaalt voor {intToMonth(billEntry.month)} {billEntry.year}: {billEntry.toPayMonth} </li>
-                    <li> Totale declaraties: {billEntry.declarationsUser}</li>
+                    <li><p>Betaalt voor {intToMonth(billEntry.month)} {billEntry.year}:</p><p>&euro; {billEntry.toPayMonth}</p></li>
+                    <li><p>Totale declaraties:</p><p>&euro; {billEntry.declarationsUser}</p></li>
                 </ul> )}
-
-        </>
+        </div>
     );
 }
 

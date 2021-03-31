@@ -4,7 +4,7 @@ import intToMonth from "../../../hooks/intToMonth";
 import {useAuthState} from "../../../context/authContext/AuthContext";
 import {Button} from "../../atoms/button/Button";
 import putFunction from "../../../hooks/putFunction";
-import styles from "../declarationSummaryField/DeclarationSummaryField.module.css";
+import styles from "./HouseBill.module.css";
 
 function HouseBill(){
 
@@ -13,6 +13,7 @@ function HouseBill(){
     const [billPayed, setBillPayed] = useState(null);
     const [billUnPayed, setBillUnPayed] = useState(null);
     const [payedBills, togglePayedBills] = useState(null);
+    const [message, setMessage] = useState("")
 
     useEffect(() => {
         getBill();
@@ -44,27 +45,45 @@ function HouseBill(){
 
         const result = await putFunction(`bills/payed/${id}`);
         console.log(result);
+        getBill();
+    }
+
+    async function createBill(){
+
+        const result = await putFunction(`bills/create/${house.houseId}`);
+        console.log(result);
+        if(result.data.message !== null){
+            setMessage(result.data.message);
+        }
+        getBill();
     }
 
 
 
     return(
-        <div className="house">
+        <div className={styles.house}>
+            <div>
+                <p>Het is de bedoeling dat er in het begin van de maand de huisrekening
+                van de vorige maand gemaakt worden. Om niet een hele maand te hoeven wachten om te testen of het werkt druk op de button
+                en het jaar van de rekening wordt verandert in een willekeurig getal</p>
+                <Button onClick={createBill}>Test</Button>
+                {message !== "" && <p>{message}</p>}
+            </div>
             {billUnPayed !== null && billUnPayed.map((billEntry) =>
                 <ul key={billEntry.month + billEntry.year}>
                     <li>{intToMonth(billEntry.month)} {billEntry.year}</li>
-                    <li>Totaal declaraties:     {billEntry.totalAmountDeclarations}</li>
-                    <li>Totaal gas/water/licht: {billEntry.totalAmountUtilities}</li>
-                    <li>Totaal deze maand:      {billEntry.totalAmountMonth}</li>
+                    <li><p>Totaal declaraties:</p><p>{billEntry.totalAmountDeclarations}</p></li>
+                    <li><p>Totaal gas/water/licht:</p><p>&euro; {billEntry.totalAmountUtilities}</p></li>
+                    <li><p>Totaal deze maand:</p><p>&euro; {billEntry.totalAmountMonth}</p></li>
                     {billEntry.billResponseUsers !== null &&
                     billEntry.billResponseUsers.map((billEntryUser) =>
-                        <ul key={billEntryUser.firstName + billEntryUser.lastName}>
-                            <li>Naam: {billEntryUser.firstName} {billEntryUser.lastName} </li>
-                            <li>Te betalen voor {intToMonth(billEntryUser.month)} {billEntryUser.year}: {billEntryUser.toPayMonth}</li>
+                    <ul key={billEntryUser.firstName + billEntryUser.lastName} className={styles.userBill}>
+                            <li><p>Naam:</p><p>{billEntryUser.firstName} {billEntryUser.lastName}</p></li>
+                            <li><p>Te betalen voor {intToMonth(billEntryUser.month)} {billEntryUser.year}:</p><p>&euro;  {billEntryUser.toPayMonth}</p></li>
                             <li>
-                                <Button
+                                {billEntryUser.payed === false && <Button
                                     onClick={(e)=>togglePayed(billEntryUser.id)}
-                                >Betaald</Button> </li>
+                                >Betaald</Button>} </li>
                         </ul>) }
                 </ul>)}
             {payedBills === null ?
@@ -78,14 +97,14 @@ function HouseBill(){
                 {payedBills !== null && payedBills.map((billEntry) =>
                     <ul key={billEntry.month + billEntry.year}>
                         <li>{intToMonth(billEntry.month)} {billEntry.year}</li>
-                        <li>Totaal declaraties:     {billEntry.totalAmountDeclarations}</li>
-                        <li>Totaal gas/water/licht: {billEntry.totalAmountUtilities}</li>
-                        <li>Totaal deze maand:      {billEntry.totalAmountMonth}</li>
+                        <li><p>Totaal declaraties:</p><p>&euro; {billEntry.totalAmountDeclarations}</p></li>
+                        <li><p>Totaal gas/water/licht:</p><p>&euro; {billEntry.totalAmountUtilities}</p></li>
+                        <li><p>Totaal deze maand:</p><p>&euro; {billEntry.totalAmountMonth}</p></li>
                         {billEntry.billResponseUsers !== null &&
                         billEntry.billResponseUsers.map((billEntryUser) =>
                             <ul key={billEntryUser.firstName + billEntryUser.lastName}>
-                                <li>Naam: {billEntryUser.firstName} {billEntryUser.lastName} </li>
-                                <li>Betaald: {intToMonth(billEntryUser.month)} {billEntryUser.year}: {billEntryUser.toPayMonth}</li>
+                                <li><p>Naam:</p><p>{billEntryUser.firstName} {billEntryUser.lastName} </p></li>
+                                <li><p>Betaald {intToMonth(billEntryUser.month)} {billEntryUser.year}:</p><p>&euro; {billEntryUser.toPayMonth}</p></li>
                             </ul>) }
                     </ul>)}
             </div>

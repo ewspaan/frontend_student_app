@@ -65,7 +65,6 @@ function AuthContextProvider ({ children }){
         try{
             const result = await getFunction("users/download");
             const response = result.data;
-            console.log("setUserAndHous-->  ", response);
             let role = "";
             if(response.roles === "ROLE_MODERATOR") {
                 role = "Huisoudste"
@@ -94,7 +93,6 @@ function AuthContextProvider ({ children }){
                 },
                 status: "done",
             })
-            console.log("user-->  ", role);
         }
         catch (e){
             setAuthState({

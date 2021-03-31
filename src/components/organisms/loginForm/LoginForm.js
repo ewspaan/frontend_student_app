@@ -21,7 +21,6 @@ export const LoginForm = () => {
     // state voor gebruikersfeedback
     const [loading, toggleLoading] = useState(false);
     const [error, setError] = useState("");
-    const [succes, setSucces] = useState(false);
 
     const { login } = useAuthState();
 

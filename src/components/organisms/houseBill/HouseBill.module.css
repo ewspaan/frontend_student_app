@@ -1,0 +1,23 @@
+.house {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.house p {
+    margin: 5px;
+}
+
+.house ul {
+
+    border: deepskyblue solid 3px;
+    border-radius: 4px;
+}
+
+.house li {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

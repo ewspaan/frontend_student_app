@@ -9,6 +9,6 @@ export const CheckButtonCorrect = ({ type , onClick , disabled }) =>(
             type={type}
             onClick={onClick}
             disabled={disabled}>
-            <img src={vinkje}  alt="Logo" className={styles.image}/>
+            <img src={vinkje}  alt="Logo" className={styles.imageCorrect}/>
         </button>
 );

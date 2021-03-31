@@ -1,23 +1,15 @@
 import React from "react";
 import styles from "../header/Header.module.css";
-import {Button} from "../../atoms/button/Button";
-import {useAuthState} from "../../../context/authContext/AuthContext";
 import {useHistory} from "react-router-dom";
-import {Heading} from "../../atoms/heading/Heading";
 import { UserButton } from "../../atoms/button/UserButton";
 import { AdminButton } from "../../atoms/button/AdminButton";
 
 function HeaderProfile() {
 
-    const { user } = useAuthState();
     const history = useHistory();
 
-
-   return(
-       <>
-           <header className={styles.header}>
-               <Heading children="Hoi" level={2}> </Heading>
-               <>
+    return(
+           <header className={styles.headerProfile}>
                    <UserButton
                        type="button"
                        onClick={() => history.push('/huisgenoten')}
@@ -66,10 +58,7 @@ function HeaderProfile() {
                    >
                        Profiel
                    </UserButton>
-               </>
            </header>
-
-       </>
    );
 }
 

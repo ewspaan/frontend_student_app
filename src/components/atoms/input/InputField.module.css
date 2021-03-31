@@ -1,4 +1,4 @@
-input {
+.inputField {
     border-radius: 4px;
     border: 2px solid deepskyblue;
     color: black;
@@ -6,3 +6,4 @@ input {
     background-color: white;
     font-weight: bold;
 }
+

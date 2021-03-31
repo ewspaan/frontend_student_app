@@ -1,0 +1,19 @@
+.roommateSummary{
+
+    display: flex;
+    flex-direction: column;
+
+}
+
+.roommateSummary li {
+
+    display: flex;
+    flex-direction: column;
+
+}
+
+.roommateSummary button {
+    width: 100px;
+}
+
+

@@ -1,0 +1,8 @@
+.succesP {
+    border-radius: 4px;
+    border: 2px solid deepskyblue;
+    color: black;
+    padding: 8px 16px;
+    background-color: white;
+    font-weight: bold;
+}

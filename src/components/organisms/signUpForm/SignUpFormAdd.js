@@ -21,12 +21,7 @@ export const SignUpFormAdd = ({housemate}) => {
     useEffect(() => {
             setValue("firstName", housemate.firstName)
             setValue("lastName", housemate.lastName)
-            setValue("username", "blabla")
             setValue("email", housemate.email)
-            setValue("dateOfBirth", "03-04-2002")
-            setValue("password", "12345678")
-            setValue("passwordRepeat", "12345678")
-            setValue("agree", true)
         },[]);
 
 
@@ -66,6 +61,7 @@ export const SignUpFormAdd = ({housemate}) => {
 
   return(
       <FormProvider {...methods} register={register} watch={watch} handleSubmit={handleSubmit} errors={errors}>
+          {succesFullSubmit ? <p>Het is gelukt! Je kunt <NavLink to="/login">hier</NavLink> inloggen.</p> :
           <form onSubmit={handleSubmit(onSubmit)}>
               <TextInput
                   name="firstName"
@@ -174,11 +170,8 @@ export const SignUpFormAdd = ({housemate}) => {
                   {loading === true && "Versturen..."}
                   {loading === false && "Versturen"}
               </Button>
-          </form>
-
+          </form>}
           {error !== "" && <p>{error}</p>}
-
-          {succesFullSubmit && <p>Het is gelukt! Je kunt <NavLink to="/login">hier</NavLink> inloggen.</p>}
       </FormProvider>
   );
 };

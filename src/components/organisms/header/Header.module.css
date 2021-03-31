@@ -1,4 +1,4 @@
-.header {
+.headerTop {
     background-color: dodgerblue;
     color: white;
     padding: 5px;
@@ -8,14 +8,29 @@
     flex-direction: row;
 }
 
-.elder {
+.headerProfile {
+    background-color: dodgerblue;
+    color: white;
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.divTop {
     display: flex;
     flex-direction: row;
     align-items: flex-end;
 }
 
-.div {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-end;
+@media screen and (min-width: 916px){
+
+    .headerProfile {
+        background-color: dodgerblue;
+        color: white;
+        padding: 5px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+    }
 }

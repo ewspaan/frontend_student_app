@@ -1,59 +1,45 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import styles from "./SignUpForm.module.css"
 import { FormProvider, useForm } from "react-hook-form";
 import { Button } from "../../atoms/button/Button";
 import { TextInput } from "../../molecules/textInput/TextInput";
-import axios from "axios";
+import postDataFunction from "../../../hooks/postDataFunction";
+import {ErrorMessage} from "../../atoms/errorMessage/ErrorMessage";
 
 function RoommateSignUpForm(){
 
     const { register, unregister, watch, getValues, handleSubmit,errors,setValue, ...methods} = useForm();
 
-    const [succesFullSubmit, toggleSuccesFullSubmit] = useState(false);
+    const [succes, toggleSucces] = useState(false);
     const [loading, toggleLoading] = useState(false);
+    const [message, setMessage] = useState("");
     const [error, setError] = useState("");
 
 
 
-    async function addClient(dataClient) {
+    async function onSubmit(dataClient) {
 
         toggleLoading(true);
-        const token = localStorage.getItem('token');
         const data = {  firstName: dataClient.firstName,
                         lastName: dataClient.lastName,
                         email: dataClient.email}
         console.log("dataClient-->  ", data)
-        try {
-
-            const result = await axios.post(`http://localhost:8080/api/users/roommate`,
-                                                data ,
-                                            {headers: {
-                                                "Content-Type": "application/json",
-                                                Authorization: `Bearer ${token}`
-                                                }}
-            );
-            console.log("axios result--> ", result);
+        const result = await postDataFunction("users/roommate",data)
+        console.log("axios result--> ", result);
             if (result.status === 200){
-                toggleSuccesFullSubmit(true);
+                toggleSucces(true);
+                setMessage(result.data.message);
+                setError("");
+            }else{
+                await setError(result.data.message);
             }
-        } catch (e) {
-            if (e.message !== null) {
-                setError(e.response.data.message);
-            }
-            toggleLoading(false);
-            console.error(e);
-        }
-        toggleSuccesFullSubmit(false);
-        setError("");
         toggleLoading(false);
     }
 
 
-    const onSubmit = (data) => {
-        addClient(data);
-    }
-
     return(
             <FormProvider {...methods} register={register} watch={watch} handleSubmit={handleSubmit} errors={errors}>
+                {succes ? <p className={styles.succesP} onClick={() =>toggleSucces(false)}>{message}. Klik hier om terug te keren</p> :
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <TextInput
                         type="text"
@@ -86,9 +72,8 @@ function RoommateSignUpForm(){
                         {loading === true && "Versturen..."}
                         {loading === false && "Versturen"}
                     </Button>
-                </form>
-                {succesFullSubmit && <p>succes</p>}
-                {error && <p>succes</p>}
+                </form>}
+                {error && <ErrorMessage>{error}</ErrorMessage>}
             </FormProvider>
     );
 }

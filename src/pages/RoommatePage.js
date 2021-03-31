@@ -1,12 +1,13 @@
 import React from 'react';
 import RoommateSummary from "../components/organisms/RoommateSummary/RoommateSummary";
+import styles from "./Page.module.css";
 
 function RoommatePage (){
 
-
-
     return (
-        <RoommateSummary/>
+        <div className={styles.page}>
+            <RoommateSummary/>
+        </div>
     );
 }
 

@@ -15,10 +15,10 @@ function HeaderTop(){
 
     return(
         <>
-        <header className={styles.header}>
+        <header className={styles.headerTop}>
             <Logo/>
             <Heading children="StudentenApp" level={1}/>
-            <div className={styles.div}>
+            <div className={styles.divTop}>
                 <Button
                     type="button"
                     onClick={() => history.push('/')}

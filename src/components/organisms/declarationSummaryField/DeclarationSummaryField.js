@@ -6,12 +6,15 @@ import {CheckButtonCorrect} from "../../atoms/checkButton/CheckButtonCorrect";
 import {CheckButtonInCorrect} from "../../atoms/checkButton/CheckButtonInCorrect";
 import putFunction from "../../../hooks/putFunction";
 import {Button} from "../../atoms/button/Button";
+import deleteFunction from "../../../hooks/deleteFunction";
+import intToMonth from "../../../hooks/intToMonth";
 
 
 function DeclarationSummaryField() {
 
 
     const [declarationsToCheck, setDeclarationsToCheck] = useState(null);
+    const [declarationsInCorrect, setDeclarationsInCorrect] = useState(null);
     const [correctDeclarations, setCorrectDeclarations] = useState(null);
 
     useEffect(() => {
@@ -20,14 +23,28 @@ function DeclarationSummaryField() {
 
     async function getDeclarations() {
 
-        const result = await getFunction(`declarations/all/${true}`);
-        await setDeclarationsToCheck(result.data);
+        const result = await getFunction(`declarations/all/${false}`);
+        const checkAble = result.data.filter((declaration) => {
+        return declaration.checked === false;
+        })
+        console.log("check--> ",checkAble);
+        await setDeclarationsToCheck(checkAble);
+        const inCorrect = result.data.filter((declaration) => {
+            return declaration.checked === true && declaration.correct === false;
+        })
+        console.log("incorrect--> ", inCorrect);
+        if(inCorrect.lenght !== 0) {
+            await setDeclarationsInCorrect(inCorrect);
+        }else {
+            await setDeclarationsInCorrect(null);
+        }
+        console.log("incorrect-decla-> ", declarationsInCorrect);
     }
 
     async function getCorrectDeclarations(){
 
         if (correctDeclarations === null) {
-            const result = await getFunction(`declarations/all/${false}`);
+            const result = await getFunction(`declarations/all/${true}`);
             await setCorrectDeclarations(result.data);
         }else {
             setCorrectDeclarations(null);
@@ -38,8 +55,14 @@ function DeclarationSummaryField() {
 
         const check = {id: data.Id,
                         correct: data.correct}
-        const result = await putFunction("declarations/update",check)
+        const result = await putFunction("declarations/checked",check)
         console.log("deca update--> " , result);
+        await getDeclarations();
+    }
+
+    async function deleteDeclaration(declarationId){
+        const result = await deleteFunction(`declarations/delete/${declarationId}`);
+        console.log(result);
         await getDeclarations();
     }
 
@@ -70,6 +93,25 @@ function DeclarationSummaryField() {
                 ))
                 }
             </div>
+            <>
+                <Heading level={1} children="Incorrecte declaraties"/>
+                {declarationsInCorrect !== null && declarationsInCorrect.map((declaration) => (
+                    <ul key={declaration.id}>
+                        <li className={styles.listItem}>
+                            <p>Huisgenoot: {declaration.firstName} {declaration.lastName} Totaal
+                                bedrag: &euro; {declaration.amount}</p>
+                            <div>
+                                <img className={styles.image} src={declaration.fileName}  alt="Logo" id="logoImg"/>
+                                <Button
+                                    onClick={(e) => deleteDeclaration(declaration.id)}>
+                                    Verwijder
+                                </Button>
+                            </div>
+                        </li>
+                    </ul>
+                ))
+                }
+            </>
             {correctDeclarations === null ?
             <Button
                 onClick={getCorrectDeclarations}
@@ -79,12 +121,10 @@ function DeclarationSummaryField() {
             > Verberg correcte declaraties </Button>}
             <div >
                 {correctDeclarations !== null && correctDeclarations.map((declaration) => (
-                    <ul key={declaration.id}>
-                        <li className={styles.listItem}>
-                            <p>Huisgenoot: {declaration.firstName} {declaration.lastName} Totaal
-                                bedrag: &euro; {declaration.amount}</p>
-                            <img className={styles.image} src={declaration.fileName}  alt="Logo" id="logoImg"/>
-                        </li>
+                    <ul key={declaration.id} className={styles.listItem}>
+                        <li><p>Gedeclareerd in {intToMonth(declaration.month)} {declaration.year}</p></li>
+                        <li><p>Totaal bedrag: &euro; {declaration.amount}</p></li>
+                        <li><img className={styles.image} src={declaration.fileName}  alt="Logo" id="logoImg"/></li>
                     </ul>
                 ))
                 }

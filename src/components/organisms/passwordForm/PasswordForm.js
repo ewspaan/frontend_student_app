@@ -1,5 +1,6 @@
 import React, {useState, useRef} from "react";
 import styles from "./PasswordForm.module.css";
+import { useHistory } from 'react-router-dom';
 import { FormProvider, useForm } from "react-hook-form";
 import { CheckboxInput } from "../../molecules/checkboxInput/CheckboxInput";
 import { PasswordInput } from "../../molecules/passwordInput/PasswordInput";
@@ -7,9 +8,11 @@ import { ErrorMessage } from "../../atoms/errorMessage/ErrorMessage";
 import { Button } from "../../atoms/button/Button";
 import postDataFunction from "../../../hooks/postDataFunction";
 
-function PasswordForm ({setPassword, minLengthPassword}) {
+function PasswordForm ({minLengthPassword}) {
+
     const [showPassword, toggleShowPassword] = useState("password");
     const { register, unregister, watch, getValues, handleSubmit,errors,setValue, ...methods} = useForm();
+    const history = useHistory();
 
     const password = useRef({password: "",
                             passwordRepeat: ""});
@@ -24,16 +27,19 @@ function PasswordForm ({setPassword, minLengthPassword}) {
     const errorMessageString = "Wachtwoord moet minimaal "+ minLengthPassword + " lang zijn";
 
 
-    function onSubmit(data){
+    async function onSubmit(data){
             const password = { password: data.password,
                                 passwordRepeat : data.passwordRepeat};
-            const result = postDataFunction("users/update", password);
-            console.log("Result-passwordform-> ", result);
+            const result = await postDataFunction("users/update", password);
+            if (result.status === 200) {
+                history.push("/profiel");
+            }
         }
 
     return (
+        <div className={styles.passwordForm}>
         <FormProvider {...methods} register={register} watch={watch} handleSubmit={handleSubmit} errors={errors}>
-            <form className={styles.passwordForm} onSubmit={handleSubmit(onSubmit)}>
+            <form  onSubmit={handleSubmit(onSubmit)}>
                 <PasswordInput
                     type={showPassword}
                     name="password"
@@ -69,6 +75,7 @@ function PasswordForm ({setPassword, minLengthPassword}) {
                 <Button>Verander wachtwoord</Button>
             </form>
         </FormProvider>
+        </div>
     );
 
 }

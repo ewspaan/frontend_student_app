@@ -15,9 +15,10 @@ async function putFunction(url, data) {
                     Authorization: `Bearer ${token}`,
                 }}
         )
-        return result.data;
+        return result;
     } catch (e) {
         console.error(e.message);
+        return e;
     }
 }
 export default putFunction;

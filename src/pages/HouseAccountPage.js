@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from "./HouseAccountPage.module.css"
+import styles from "./Page.module.css";
 import HouseBillUser from "../components/organisms/houseBill/HouseBillUser";
 import ProfileHouse from "../components/organisms/profile/ProfileHouse";
 
@@ -11,7 +11,7 @@ function HouseAccountPage(){
 
     return(
 
-            <div className={styles.accountDiv}>
+            <div className={styles.page}>
                 <ProfileHouse/>
                 <HouseBillUser/>
             </div>

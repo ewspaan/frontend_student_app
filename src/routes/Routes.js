@@ -14,6 +14,9 @@ import ElderRoute from "./ElderRoute";
 import RoommateRoute from "./RoommateRoute";
 import DeclarationCheckPage from "../pages/DeclarationCheckPage";
 import HouseBillCheckPage from "../pages/HouseBillCheckPage";
+import PasswordForm from "../components/organisms/passwordForm/PasswordForm";
+import PersonInfoForm from "../components/organisms/personInfoForm/PersonInfoForm";
+import DeclarationFormEdit from "../components/organisms/declarationForm/DeclarationFormEdit";
 
 
 function Routes() {
@@ -37,14 +40,19 @@ function Routes() {
                 <RoommateRoute exact path="/huisgenoten" >
                     <RoommatePage/>
                 </RoommateRoute>
-                <RoommateRoute path="/profiel">
+                <RoommateRoute exact path="/profiel">
                     <ProfilePage/>
+                </RoommateRoute>
+                <RoommateRoute exact path="/profiel/veranderwachtwoord">
+                    <PasswordForm minLengthPassword={8}/>
+                </RoommateRoute>
+                <RoommateRoute exact path="/profiel/veranderprofiel">
+                    <PersonInfoForm/>
                 </RoommateRoute>
                 <RoommateRoute exact path="/huisrekening/overzicht">
                     <HouseAccountPage/>
                 </RoommateRoute>
-
-                <ElderRoute path="/declaratie/keuren">
+                <ElderRoute exact path="/declaratie/keuren">
                     <DeclarationCheckPage/>
                 </ElderRoute>
                 <ElderRoute path="/huisgenoten/toevoegen" >

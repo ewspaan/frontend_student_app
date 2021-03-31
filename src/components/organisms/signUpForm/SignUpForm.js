@@ -1,12 +1,12 @@
-import React, { useState , useEffect} from "react";
+import React, { useState } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { TextInput } from "../../molecules/textInput/TextInput";
 import { Button } from "../../atoms/button/Button";
 import { CheckboxInput } from "../../molecules/checkboxInput/CheckboxInput";
 import { PasswordInput } from "../../molecules/passwordInput/PasswordInput";
-import axios from "axios";
 import { NavLink } from "react-router-dom";
 import { ErrorMessage } from "../../atoms/errorMessage/ErrorMessage";
+import postDataFunction from "../../../hooks/postDataFunction";
 
 
 export const SignUpForm = () => {
@@ -18,9 +18,8 @@ export const SignUpForm = () => {
     const [error, setError] = useState("");
     const toggleClick = () => showPassword === "password" ? toggleShowPassword("text") : toggleShowPassword("password");
 
-    const onSubmit = (data) => {
+    async function onSubmit(data){
         toggleLoading(true);
-        console.log("data--> ", data);
         const client =  ({
             firstName: data.firstName,
             lastName: data.lastName,
@@ -28,34 +27,24 @@ export const SignUpForm = () => {
             email: data.email,
             dateOfBirth: data.dateOfBirth,
             password: data.password});
-        console.log("client--> ", client);
-
         toggleSuccesFullSubmit(false);
         setError("");
-        addClient(client)
-    }
-
-
-
-    async function addClient(dataClient) {
-        try {
-
-            const result = await axios.post(`http://localhost:8080/api/auth/signup`, dataClient, null);
-            console.log("axios result--> ", result);
-            if (result.status === 200){
-                toggleSuccesFullSubmit(true);
-            }
-        } catch (e) {
-            if (e.message !== null) {
-                setError(e.response.data.message);
-            }
-            console.error(e.message.data);
+        const result = await postDataFunction(`auth/signup`, client);
+        console.log("axios result--> ", result);
+        if(result.status !== null && result.status === 200){
+            toggleSuccesFullSubmit(true);
         }
-        toggleLoading(false)
+        if(result.message ===  "Request failed with status code 400"){
+            setError("Username is al in gebruik");
+        }
+        toggleLoading(false);
     }
+
 
   return(
+
       <FormProvider {...methods} register={register} watch={watch} handleSubmit={handleSubmit} errors={errors}>
+          {succesFullSubmit === true ? <p>Registreren is gelukt? Je kunt <NavLink to="/login">hier</NavLink> inloggen.</p> :
           <form onSubmit={handleSubmit(onSubmit)}>
               <TextInput
                   name="firstName"
@@ -164,9 +153,9 @@ export const SignUpForm = () => {
                   {loading === true && "Versturen..."}
                   {loading === false && "Versturen"}
               </Button>
-          </form>
+          </form>}
+          {!succesFullSubmit && <p>Heb je al een account? Je kunt <NavLink to="/login">hier</NavLink> inloggen.</p>}
           {error !== "" && <ErrorMessage>{error}</ErrorMessage>}
-          <p>{succesFullSubmit ? "Het is gelukt! Je kunt " : "Heb je al een account? Je kunt " }<NavLink to="/login">hier</NavLink> inloggen.</p>
       </FormProvider>
   );
 };

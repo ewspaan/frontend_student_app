@@ -1,12 +1,12 @@
 import React from "react";
-import styles from "./DeclarationPage.module.css";
+import styles from "./Page.module.css";
 import DeclarationForm from "../components/organisms/declarationForm/DeclarationForm";
 
 function DeclarationPage(){
 
 
     return (
-        <div className={styles.declarationDiv}>
+        <div className={styles.page}>
             <DeclarationForm/>
         </div>
     );

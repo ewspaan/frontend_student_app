@@ -1,5 +1,6 @@
 import React from 'react';
 import { SignUpForm } from "../components/organisms/signUpForm/SignUpForm";
+import styles from "./Page.module.css";
 
 function SignUpPage(){
 
@@ -8,7 +9,7 @@ function SignUpPage(){
 
     return(
 
-        <div className="page-container">
+        <div className={styles.page}>
             <SignUpForm/>
         </div>
     )

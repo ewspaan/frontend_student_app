@@ -1,12 +1,10 @@
+.listItem {
+    list-style-type: none;
+}
+
 .image {
     height: auto;
     width: 300px;
 }
-.listItem div{
-    display: flex;
-    flex-direction: row;
-}
 
-.listItem p {
 
-}

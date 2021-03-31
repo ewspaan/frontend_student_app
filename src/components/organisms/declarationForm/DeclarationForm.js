@@ -5,7 +5,6 @@ import { Button } from "../../atoms/button/Button";
 import { InputField } from "../../atoms/input/InputField";
 import { ErrorMessage } from "../../atoms/errorMessage/ErrorMessage";
 import postDataFunction from "../../../hooks/postDataFunction";
-import {TextInputErrorLess} from "../../molecules/textInput/TextInputErrorLess";
 import {Label} from "../../atoms/label/Label";
 
 function DeclarationForm(){
@@ -14,16 +13,19 @@ function DeclarationForm(){
     const [imagePreview, setImagePreview] = useState(null);
     const [loading, toggleLoading] = useState(false);
     const [selectedFile, setSelectedFile] = useState(null);
+    const [succes,toggleSucces] = useState(false);
+    const [message, setMessage] = useState("");
     const {handleSubmit, register, errors } = useForm();
 
 
     async function handleImageChange(e) {
         e.preventDefault();
         const file = e.target.files[0];
-        const file64 = await convertBase64(file);
+        const file64 = await convert(file);
         setSelectedFile(file64);
     }
-    const convertBase64 = (file) => {
+
+    function convert(file) {
         return new Promise((resolve, reject) => {
             const reader= new FileReader()
             reader.readAsDataURL(file)
@@ -42,7 +44,7 @@ function DeclarationForm(){
         if (!imagePreviewUrl) {
             setImagePreview(<div className="previewText">Selecteer bon om mee te sturen</div>);
         }else {
-            setImagePreview(<img src={imagePreviewUrl} alt="Preview"/>);
+            setImagePreview(<img className={styles.previewImage} src={imagePreviewUrl} alt="Preview"/>);
         }},[imagePreviewUrl]);
 
     //file uploaden en declaratie
@@ -54,15 +56,19 @@ function DeclarationForm(){
                         amount: correctGroceriesAmount};
         const result = await postDataFunction("declarations/upload", data);
         console.log("declaresult-->  ", result);
-        // const formData = new FormData();
-        // formData.append("file", selectedFile);
-        // formData.append("amount", correctGroceriesAmount);
-        // await postFunction(`declarations/upload`, formData, true);
+        if (result.data.message !== null) {
+            setMessage(result.data.message);
+        }
         toggleLoading(false);
+        toggleSucces(true);
+        setImagePreview(null);
+        setImagePreviewUrl(null);
     }
 
     return(
         <div className={styles.container}>
+            {succes ? <p onClick={() =>toggleSucces(false)}>{message}. Klik hier om terug te keren</p> :
+            <>
             <div className={styles["image_preview"]}>
                 {imagePreview}
             </div>
@@ -109,6 +115,7 @@ function DeclarationForm(){
                 {errors.groceryAmount && <ErrorMessage className={styles["error_message"]}>{errors.groceryAmount.message}</ErrorMessage>}
                 {errors.fileInput && <ErrorMessage className={styles["error_message"]}>{errors.fileInput.message}</ErrorMessage>}
             </div>
+            </>}
         </div>
 
     );

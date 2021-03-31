@@ -19,6 +19,7 @@ async function postFileFunction(url, data) {
         return result.data;
     } catch (e) {
         console.error(e.message);
+        return e;
     }
 }
 export default postFileFunction;

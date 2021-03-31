@@ -2,8 +2,9 @@ import React, {useEffect, useState} from "react";
 import styles from "../declarationSummaryField/DeclarationSummaryField.module.css"
 import getFunction from "../../../hooks/getFunction";
 import { Heading } from "../../atoms/heading/Heading";
-import {Button} from "../../atoms/button/Button";
+import { Button } from "../../atoms/button/Button";
 import DeclarationFormEdit from "../declarationForm/DeclarationFormEdit";
+import intToMonth from "../../../hooks/intToMonth";
 
 
 function DeclarationSummaryFieldUser() {
@@ -15,7 +16,7 @@ function DeclarationSummaryFieldUser() {
 
     useEffect(() => {
         getDeclarations();
-    },[]);
+    },[edit]);
 
     async function getDeclarations() {
 
@@ -64,12 +65,10 @@ function DeclarationSummaryFieldUser() {
                 > Verberg correcte declaraties </Button>}
             <div >
                 {correctDeclarations !== null && correctDeclarations.map((declaration) => (
-                    <ul key={declaration.id}>
-                        <li className={styles.listItem}>
-                            <p>Huisgenoot: {declaration.firstName} {declaration.lastName} Totaal
-                                bedrag: &euro; {declaration.amount}</p>
-                            <img className={styles.image} src={declaration.fileName}  alt="Logo" id="logoImg"/>
-                        </li>
+                    <ul key={declaration.id} className={styles.listItem}>
+                        <li><p>Gedeclareerd in {intToMonth(declaration.month)} {declaration.year}</p></li>
+                        <li><p>Totaal bedrag: &euro; {declaration.amount}</p></li>
+                        <li><img className={styles.image} src={declaration.fileName}  alt="Logo" id="logoImg"/></li>
                     </ul>
                 ))
                 }
@@ -77,7 +76,7 @@ function DeclarationSummaryFieldUser() {
         </div>
     );}
     else {
-        return <DeclarationFormEdit id={declarationInfo}/>
+        return <DeclarationFormEdit id={declarationInfo} toggleEdit={toggleEdit}/>
     }
 
 }

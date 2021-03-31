@@ -30,7 +30,12 @@
     background-color: red;
     font-weight: bold;
 }
-.image{
+.imageInCorrect {
+    height: 40px;
+    width: auto;
+}
+
+.imageCorrect{
     height: 40px;
     width: auto;
 }
