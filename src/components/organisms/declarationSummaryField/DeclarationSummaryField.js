@@ -24,10 +24,11 @@ function DeclarationSummaryField() {
     async function getDeclarations() {
 
         const result = await getFunction(`declarations/all/${false}`);
+        console.log("check--> ",result);
         const checkAble = result.data.filter((declaration) => {
         return declaration.checked === false;
         })
-        console.log("check--> ",checkAble);
+        console.log("checkAble--> ",checkAble);
         await setDeclarationsToCheck(checkAble);
         const inCorrect = result.data.filter((declaration) => {
             return declaration.checked === true && declaration.correct === false;

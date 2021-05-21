@@ -67,7 +67,7 @@ function DeclarationForm(){
 
     return(
         <div className={styles.container}>
-            {succes ? <p onClick={() =>toggleSucces(false)}>{message}. Klik hier om terug te keren</p> :
+            {succes ? <p onClick={() =>toggleSucces(false)}>{message} Klik hier om terug te keren</p> :
             <>
             <div className={styles["image_preview"]}>
                 {imagePreview}

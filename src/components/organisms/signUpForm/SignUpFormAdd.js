@@ -6,10 +6,12 @@ import { CheckboxInput } from "../../molecules/checkboxInput/CheckboxInput";
 import { PasswordInput } from "../../molecules/passwordInput/PasswordInput";
 import axios from "axios";
 import {NavLink} from "react-router-dom";
+import {useAuthState} from "../../../context/authContext/AuthContext";
 
 
 export const SignUpFormAdd = ({housemate}) => {
-    const {  register, unregister, watch, getValues, handleSubmit,errors,setValue, ...methods} = useForm();
+    const { register, unregister, watch, getValues, handleSubmit,errors,setValue, ...methods} = useForm();
+    const { logout } = useAuthState();
 
     const [showPassword, toggleShowPassword] = useState("password");
     const [succesFullSubmit, toggleSuccesFullSubmit] = useState(false);
@@ -19,10 +21,11 @@ export const SignUpFormAdd = ({housemate}) => {
 
     //Test data setten plus de data verkregen uit email
     useEffect(() => {
-            setValue("firstName", housemate.firstName)
-            setValue("lastName", housemate.lastName)
-            setValue("email", housemate.email)
-        },[]);
+                logout();
+                setValue("firstName", housemate.firstName);
+                setValue("lastName", housemate.lastName);
+                setValue("email", housemate.email);
+            },[]);
 
 
     const onSubmit = (data) => {
@@ -36,8 +39,6 @@ export const SignUpFormAdd = ({housemate}) => {
             password: data.password,
             houseId:housemate.houseId
         });
-        console.log("client--> ", client);
-
         toggleSuccesFullSubmit(false);
         setError("");
         addClient(client);

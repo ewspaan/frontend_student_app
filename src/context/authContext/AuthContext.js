@@ -19,7 +19,6 @@ function AuthContextProvider ({ children }){
             try {
                 await setUserAndHouse();
             } catch (e) {
-                // Gaat er toch iets mis? Dan zetten we de error in de context
                 setAuthState({
                     ...authState,
                     error: e,
@@ -29,12 +28,9 @@ function AuthContextProvider ({ children }){
                 console.error(e);
             }
         }
-        // als we geen userinformatie meer in de applicatie hebben, maar er staat WEL een token in
-        // local storage, gaan we handmatig de gebuikersdata ophalen door de getUserInfo functie van hierboven aan te roepen
         if (authState.user === null && token) {
             getUserInfo();
         } else {
-            // Als er geen ingelogde gebruiker hoeft te zijn, zetten we de context naar de basis state
             setAuthState({
                 ...authState,
                 error: null,
@@ -51,9 +47,7 @@ function AuthContextProvider ({ children }){
     }
 
     function logout() {
-        // 1. Maak local storage leeg
         localStorage.clear();
-        // 2. Haal de user uit de context-state
         setAuthState({
             ...authState,
             user: null,
@@ -117,8 +111,6 @@ function AuthContextProvider ({ children }){
 
 function useAuthState() {
     const authState = useContext(AuthContext);
-    // iemand is geauthoriseerd wanneer de status === 'done'
-    // en als er een gebruiker in de authState staat
     const isDone = authState.status === "done";
     const isAuthenticated = authState.user !== null && isDone;
 
