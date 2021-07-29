@@ -26,7 +26,7 @@ function DeclarationSummaryField() {
         const result = await getFunction(`declarations/all/${false}`);
         console.log("check--> ",result);
         const checkAble = result.data.filter((declaration) => {
-        return declaration.checked === false;
+            return declaration.checked === false;
         })
         console.log("checkAble--> ",checkAble);
         await setDeclarationsToCheck(checkAble);

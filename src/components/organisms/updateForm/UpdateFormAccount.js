@@ -6,7 +6,6 @@ import { FormProvider, useForm } from "react-hook-form";
 import putFunction from "../../../hooks/putFunction";
 import {useAuthState} from "../../../context/authContext/AuthContext";
 import {Heading} from "../../atoms/heading/Heading";
-import {NavLink} from "react-router-dom";
 
 
 function UpdateFormAccount(){

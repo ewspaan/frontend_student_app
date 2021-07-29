@@ -7,7 +7,7 @@ import { CheckboxInput } from "../../molecules/checkboxInput/CheckboxInput";
 import { Button } from "../../atoms/button/Button";
 import axios from "axios";
 import { useAuthState } from "../../../context/authContext/AuthContext";
-import {ErrorMessage} from "../../atoms/errorMessage/ErrorMessage";
+import { ErrorMessage } from "../../atoms/errorMessage/ErrorMessage";
 
 
 export const LoginForm = () => {
